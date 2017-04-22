@@ -2,6 +2,7 @@
 #include <ruby/encoding.h>
 #include "hescape.h"
 #include "string.h"
+#include "hamlit/rubinius_compat.h"
 
 VALUE mAttributeBuilder, mObjectRef;
 static ID id_flatten, id_keys, id_parse, id_prepend, id_tr, id_uniq_bang;
