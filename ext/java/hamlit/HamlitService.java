@@ -12,7 +12,11 @@ public class HamlitService implements BasicLibraryService {
 
     private void init(Ruby ruby) {
         RubyModule hamlit = ruby.defineModule("Hamlit");
+
         RubyModule utils = hamlit.defineModuleUnder("Utils");
         utils.defineAnnotatedMethods(Utils.class);
+
+        RubyModule attributeBuilder = hamlit.defineModuleUnder("AttributeBuilder");
+        attributeBuilder.defineAnnotatedMethods(AttributeBuilder.class);
     }
 }

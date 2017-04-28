@@ -23,7 +23,7 @@ public class Utils extends RubyObject {
         return context.getRuntime().newString(escapeHtml(str));
     }
 
-    private static String escapeHtml(String str) {
+    public static String escapeHtml(String str) {
         return str
             .replace("&", "&amp;")
             .replace("\"", "&quot;")
