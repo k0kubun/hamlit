@@ -14,12 +14,16 @@ end
 
 gem 'benchmark-ips', '2.3.0'
 gem 'minitest-line'
-gem 'pry-byebug'
 
 # Waiting https://github.com/slim-template/slim/pull/749 to be released.
 gem 'slim', github: 'slim-template/slim'
 
-if RUBY_PLATFORM !~ /mswin|mingw|bccwin|wince/
-  gem 'faml'
-  gem 'stackprof'
+if RUBY_ENGINE == "ruby"
+  gem 'pry-byebug'
+  gem 'redcarpet'
+
+  if RUBY_PLATFORM !~ /mswin|mingw|bccwin|wince/
+    gem 'faml'
+    gem 'stackprof'
+  end
 end
