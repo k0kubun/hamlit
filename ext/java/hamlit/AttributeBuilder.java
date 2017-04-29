@@ -30,6 +30,18 @@ public class AttributeBuilder extends RubyObject {
         }
     }
 
+    @JRubyMethod(name="build_id", meta = true, required = 2, rest = true)
+    public static IRubyObject buildId(ThreadContext context, IRubyObject klass, IRubyObject[] args) {
+        IRubyObject ids = RubyArray.newArray(context.getRuntime());
+        for (int i = 1; i < args.length; i++) {
+            RuntimeHelpers.invoke(context, ids, "push", args[i]);
+        }
+        RuntimeHelpers.invoke(context, ids, "flatten!");
+        deleteFalseyValues((RubyArray)ids);
+        ids = RuntimeHelpers.invoke(context, ids, "join", context.getRuntime().newString("_"));
+        return escapeAttribute(context, args[0], ids);
+    }
+
     private static IRubyObject buildSingleClass(ThreadContext context, IRubyObject escapeAttrs, IRubyObject value) {
         if (value instanceof RubyString) {
             // noop
@@ -57,7 +69,7 @@ public class AttributeBuilder extends RubyObject {
                 value = RuntimeHelpers.invoke(context, value, "flatten");
                 deleteFalseyValues((RubyArray)value);
                 RuntimeHelpers.invoke(context, buf, "concat", value);
-            } else if (value.isTrue()){
+            } else if (value.isTrue()) {
                 value = RuntimeHelpers.invoke(context, value, "to_s");
                 RuntimeHelpers.invoke(context, buf, "push", value);
             }
