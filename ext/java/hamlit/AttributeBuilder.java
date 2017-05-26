@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.jruby.Ruby;
 import org.jruby.RubyArray;
+import org.jruby.RubyHash;
 import org.jruby.RubyString;
 import org.jruby.RubyClass;
 import org.jruby.RubyObject;
@@ -40,6 +41,24 @@ public class AttributeBuilder extends RubyObject {
         deleteFalseyValues((RubyArray)ids);
         ids = RuntimeHelpers.invoke(context, ids, "join", context.getRuntime().newString("_"));
         return escapeAttribute(context, args[0], ids);
+    }
+
+    @JRubyMethod(name="build_data", meta = true, required = 3, rest = true)
+    public static IRubyObject buildData(ThreadContext context, IRubyObject klass, IRubyObject[] args) {
+        IRubyObject attrs = mergeDataAttrs(context, Arrays.copyOfRange(args, 2, args.length));
+        return context.getRuntime().newString("");
+    }
+
+    private static IRubyObject mergeDataAttrs(ThreadContext context, IRubyObject[] args) {
+        RubyHash merged = RubyHash.newHash(context.getRuntime());
+        for (int i = 0; i < args.length; i++) {
+            if (value instanceof RubyHash) {
+                merged.
+            } else {
+                merged.fastASet(context.getRuntime().newString("data"), args[i]);
+            }
+        }
+        return merged;
     }
 
     private static IRubyObject buildSingleClass(ThreadContext context, IRubyObject escapeAttrs, IRubyObject value) {
