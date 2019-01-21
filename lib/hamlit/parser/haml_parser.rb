@@ -1,6 +1,6 @@
 require 'strscan'
-require 'hamlit/parser/haml_util'
-require 'hamlit/parser/haml_error'
+require_relative "haml_util.rb"
+require_relative "haml_error.rb"
 
 module Hamlit
   class HamlParser

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'hamlit/attribute_builder'
-require 'hamlit/attribute_parser'
-require 'hamlit/ruby_expression'
+require_relative 'attribute_builder.rb'
+require_relative 'attribute_parser.rb'
+require_relative 'ruby_expression.rb'
 
 module Hamlit
   class AttributeCompiler

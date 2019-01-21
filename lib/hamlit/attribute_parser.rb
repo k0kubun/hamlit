@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'hamlit/ruby_expression'
+require_relative "ruby_expression.rb"
 
 module Hamlit
   class AttributeParser

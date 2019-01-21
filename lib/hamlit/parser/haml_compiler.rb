@@ -1,5 +1,5 @@
-require 'hamlit/parser/haml_util'
-require 'hamlit/parser/haml_parser'
+require_relative "haml_util.rb"
+require_relative "haml_parser.rb"
 
 module Hamlit
   class HamlCompiler

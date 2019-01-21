@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'hamlit/parser/haml_util'
+require_relative "../parser/haml_util.rb"
 
 module Hamlit
   class Filters

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-require 'hamlit/engine'
-require 'hamlit/error'
-require 'hamlit/version'
-require 'hamlit/template'
+require_relative "hamlit/engine.rb"
+require_relative "hamlit/error.rb"
+require_relative "hamlit/version.rb"
+require_relative "hamlit/template.rb"
 
 begin
   require 'rails'
-  require 'hamlit/railtie'
+  require_relative "railtie.rb"
 rescue LoadError
 end

@@ -1,20 +1,20 @@
 # frozen_string_literal: true
-require 'hamlit/filters/base'
-require 'hamlit/filters/text_base'
-require 'hamlit/filters/tilt_base'
-require 'hamlit/filters/coffee'
-require 'hamlit/filters/css'
-require 'hamlit/filters/erb'
-require 'hamlit/filters/escaped'
-require 'hamlit/filters/javascript'
-require 'hamlit/filters/less'
-require 'hamlit/filters/markdown'
-require 'hamlit/filters/plain'
-require 'hamlit/filters/preserve'
-require 'hamlit/filters/ruby'
-require 'hamlit/filters/sass'
-require 'hamlit/filters/scss'
-require 'hamlit/filters/cdata'
+require_relative "filters/base.rb"
+require_relative "filters/text_base.rb"
+require_relative "filters/tilt_base.rb"
+require_relative "filters/coffee.rb"
+require_relative "filters/css.rb"
+require_relative "filters/erb.rb"
+require_relative "filters/escaped.rb"
+require_relative "filters/javascript.rb"
+require_relative "filters/less.rb"
+require_relative "filters/markdown.rb"
+require_relative "filters/plain.rb"
+require_relative "filters/preserve.rb"
+require_relative "filters/ruby.rb"
+require_relative "filters/sass.rb"
+require_relative "filters/scss.rb"
+require_relative "filters/cdata.rb"
 
 module Hamlit
   class Filters

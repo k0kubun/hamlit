@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-require 'hamlit/compiler/children_compiler'
-require 'hamlit/compiler/comment_compiler'
-require 'hamlit/compiler/doctype_compiler'
-require 'hamlit/compiler/script_compiler'
-require 'hamlit/compiler/silent_script_compiler'
-require 'hamlit/compiler/tag_compiler'
-require 'hamlit/filters'
-require 'hamlit/identity'
+require_relative "compiler/children_compiler.rb"
+require_relative "compiler/comment_compiler.rb"
+require_relative "compiler/doctype_compiler.rb"
+require_relative "compiler/script_compiler.rb"
+require_relative "compiler/silent_script_compiler.rb"
+require_relative "compiler/tag_compiler.rb"
+require_relative "filters.rb"
+require_relative "identity.rb"
 
 module Hamlit
   class Compiler

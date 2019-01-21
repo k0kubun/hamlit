@@ -1,6 +1,6 @@
-require 'hamlit/parser/haml_helpers'
-require 'hamlit/parser/haml_util'
-require 'hamlit/parser/haml_compiler'
+require_relative "haml_helpers.rb"
+require_relative "haml_util.rb"
+require_relative "haml_compiler.rb"
 
 module Hamlit
   # This class is used only internally. It holds the buffer of HTML that

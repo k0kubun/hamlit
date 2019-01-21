@@ -1,6 +1,6 @@
-require 'hamlit/parser/haml_parser'
-require 'hamlit/parser/haml_compiler'
-require 'hamlit/parser/haml_error'
+require_relative "haml_parser.rb"
+require_relative "haml_compiler.rb"
+require_relative "haml_error.rb"
 
 module Hamlit
   # This class encapsulates all of the configuration options that Haml

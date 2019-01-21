@@ -6,7 +6,7 @@ require 'action_controller'
 require 'action_view'
 require 'rails'
 
-require 'hamlit'
+require_relative '../lib/hamlit.rb'
 require 'haml'
 
 # Protect Minitest from Rails' Minitest plugin: https://github.com/rails/rails/pull/19571

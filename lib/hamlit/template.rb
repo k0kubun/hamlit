@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 require 'temple'
-require 'hamlit/engine'
-require 'hamlit/helpers'
+require_relative "engine.rb"
+require_relative "helpers.rb"
 
 # Load tilt/haml first to override if available
 begin

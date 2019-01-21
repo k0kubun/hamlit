@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'hamlit'
+require_relative '../hamlit.rb'
 require 'thor'
 
 module Hamlit
@@ -68,7 +68,7 @@ module Hamlit
       if options[:actionview]
         require 'action_view'
         require 'action_view/base'
-        require 'hamlit/rails_template'
+        require_relative "rails_template.rb"
         handler = Hamlit::RailsTemplate.new
         template = ActionView::Template.new(template, 'inline template', handler, { locals: [] })
         code = handler.call(template)

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 require 'temple'
-require 'hamlit/parser'
-require 'hamlit/compiler'
-require 'hamlit/escapable'
-require 'hamlit/force_escapable'
-require 'hamlit/html'
-require 'hamlit/string_splitter'
+require_relative "parser.rb"
+require_relative "compiler.rb"
+require_relative "escapable.rb"
+require_relative "force_escapable.rb"
+require_relative "html.rb"
+require_relative "string_splitter.rb"
 
 module Hamlit
   class Engine < Temple::Engine

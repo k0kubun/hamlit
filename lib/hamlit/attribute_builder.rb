@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'hamlit/object_ref'
+require_relative "object_ref.rb"
 
 module Hamlit::AttributeBuilder
   BOOLEAN_ATTRIBUTES = %w[disabled readonly multiple checked autobuffer

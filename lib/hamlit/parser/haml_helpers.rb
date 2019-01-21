@@ -1,7 +1,7 @@
-require 'hamlit/parser/haml_error'
-require 'hamlit/parser/haml_options'
-require 'hamlit/parser/haml_compiler'
-require 'hamlit/parser/haml_parser'
+require_relative "haml_error.rb"
+require_relative "haml_options.rb"
+require_relative "haml_compiler.rb"
+require_relative "haml_parser.rb"
 
 module Hamlit
   # This module contains various helpful methods to make it easier to do various tasks.

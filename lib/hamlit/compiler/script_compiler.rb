@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'temple/static_analyzer'
-require 'hamlit/ruby_expression'
-require 'hamlit/string_splitter'
+require_relative "../ruby_expression.rb"
+require_relative "../string_splitter.rb"
 
 module Hamlit
   class Compiler

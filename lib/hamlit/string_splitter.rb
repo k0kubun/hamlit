@@ -1,5 +1,5 @@
 require 'ripper'
-require 'hamlit/ruby_expression'
+require_relative "ruby_expression.rb"
 
 module Hamlit
   class StringSplitter < Temple::Filter

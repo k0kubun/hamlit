@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'hamlit/escapable'
+require_relative "escapable.rb"
 
 module Hamlit
   # This module allows Temple::Filter to dispatch :fescape on `#compile`.

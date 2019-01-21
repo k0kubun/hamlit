@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'hamlit/string_splitter'
+require_relative "../string_splitter.rb"
 
 module Hamlit
   class Filters

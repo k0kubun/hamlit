@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'temple'
-require 'hamlit/engine'
-require 'hamlit/rails_helpers'
-require 'hamlit/parser/haml_helpers'
-require 'hamlit/parser/haml_util'
+require_relative "engine.rb"
+require_relative "rails_helpers.rb"
+require_relative "parser/haml_helpers.rb"
+require_relative "parser/haml_util.rb"
 
 module Hamlit
   class RailsTemplate
@@ -43,7 +43,7 @@ module Hamlit
 
   # https://github.com/haml/haml/blob/4.0.7/lib/haml/template.rb
   module HamlHelpers
-    require 'hamlit/parser/haml_xss_mods'
+    require_relative "parser/haml_xss_mods.rb"
     include Hamlit::HamlHelpers::XssMods
   end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'hamlit/parser/haml_util'
-require 'hamlit/attribute_compiler'
-require 'hamlit/string_splitter'
+require_relative "../parser/haml_util.rb"
+require_relative "../attribute_compiler.rb"
+require_relative "../string_splitter.rb"
 
 module Hamlit
   class Compiler

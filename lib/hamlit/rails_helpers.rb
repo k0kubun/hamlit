@@ -1,5 +1,5 @@
 # frozen_string_literal: false
-require 'hamlit/helpers'
+require_relative "helpers.rb"
 
 # Currently this Hamlit::Helpers depends on
 # ActionView internal implementation. (not desired)

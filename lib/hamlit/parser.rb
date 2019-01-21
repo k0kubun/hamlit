@@ -2,13 +2,13 @@
 # Hamlit::Parser uses original Haml::Parser to generate Haml AST.
 # hamlit/parser/haml_* are modules originally in haml gem.
 
-require 'hamlit/parser/haml_error'
-require 'hamlit/parser/haml_util'
-require 'hamlit/parser/haml_buffer'
-require 'hamlit/parser/haml_compiler'
-require 'hamlit/parser/haml_parser'
-require 'hamlit/parser/haml_helpers'
-require 'hamlit/parser/haml_options'
+require_relative "parser/haml_error.rb"
+require_relative "parser/haml_util.rb"
+require_relative "parser/haml_buffer.rb"
+require_relative "parser/haml_compiler.rb"
+require_relative "parser/haml_parser.rb"
+require_relative "parser/haml_helpers.rb"
+require_relative "parser/haml_options.rb"
 
 module Hamlit
   class Parser
