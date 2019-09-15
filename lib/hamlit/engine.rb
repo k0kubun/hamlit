@@ -6,12 +6,13 @@ require 'hamlit/html'
 require 'hamlit/escapable'
 require 'hamlit/force_escapable'
 require 'hamlit/dynamic_merger'
+require 'hamlit/generator'
 
 module Hamlit
   class Engine < Temple::Engine
     define_options(
       :buffer_class,
-      generator:    Temple::Generators::ArrayBuffer,
+      generator:    Hamlit::Generator,
       format:       :html,
       attr_quote:   "'",
       escape_html:  true,
