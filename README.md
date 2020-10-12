@@ -13,7 +13,7 @@ With some [limitations](REFERENCE.md#limitations) by design for performance,
 Hamlit is **1.94x times faster** than original haml gem in [this benchmark](benchmark/slim/run-benchmarks.rb),
 which is an HTML-escaped version of [slim-template/slim's one](https://github.com/slim-template/slim/blob/4.1.0/benchmarks/run-benchmarks.rb) for fairness. ([Result on Travis](https://travis-ci.org/github/k0kubun/hamlit/jobs/732178446))
 
-<img src="https://i.gyazo.com/0f0c0362b6bd69f82715bec1d8caa191.png" width="600px" alt="Hamlit Benchmark"/>
+![Hamlit Benchmark](./benchmark/graph/graph.png)
 
 ```
       hamlit v2.13.0:   247404.4 i/s
