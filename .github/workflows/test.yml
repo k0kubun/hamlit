@@ -22,7 +22,7 @@ jobs:
           # TODO: add jruby and truffleruby
     steps:
       - uses: actions/checkout@v2
-      - run: apt-get update && apt-get install nodejs # For execjs
+      - run: apt-get update && apt-get install -y nodejs # For execjs
       - name: bundle install
         run: bundle install -j$(nproc) --retry 3
       - run: bundle exec rake test
