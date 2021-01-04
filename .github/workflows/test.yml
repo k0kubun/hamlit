@@ -31,5 +31,5 @@ jobs:
           restore-keys: ${{ runner.os }}-gems-
       - run: apt-get update && apt-get install -y nodejs # For execjs
       - name: bundle install
-        run: bundle install --path vendor/bundle -j$(nproc) --retry 3
+        run: bundle config path vendor/bundle && bundle install -j$(nproc) --retry 3
       - run: bundle exec rake test
