@@ -28,8 +28,7 @@ jobs:
         with:
           path: vendor/bundle
           key: ${{ runner.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
+          restore-keys: ${{ runner.os }}-gems-
       - run: apt-get update && apt-get install -y nodejs # For execjs
       - name: bundle install
         run: |
