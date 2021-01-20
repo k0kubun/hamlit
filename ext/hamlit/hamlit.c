@@ -520,6 +520,11 @@ Init_hamlit(void)
   mUtils            = rb_define_module_under(mHamlit, "Utils");
   mAttributeBuilder = rb_define_module_under(mHamlit, "AttributeBuilder");
 
+  rb_gc_mark(mHamlit);
+  rb_gc_mark(mUtils);
+  rb_gc_mark(mAttributeBuilder);
+  rb_gc_mark(mObjectRef);
+
   rb_define_singleton_method(mUtils, "escape_html", rb_escape_html, 1);
   rb_define_singleton_method(mAttributeBuilder, "build", rb_hamlit_build, -1);
   rb_define_singleton_method(mAttributeBuilder, "build_id", rb_hamlit_build_id, -1);
