@@ -13,18 +13,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: ${{ matrix.ruby }}
     strategy:
       fail-fast: false
       matrix:
         ruby:
-          - ruby:2.5
-          - ruby:2.6
-          - ruby:2.7
-          - ruby:3.0
-          - flavorjones/truffleruby:nightly
+          - '2.5'
+          - '2.6'
+          - '2.7'
+          - '3.0'
+          - truffleruby-head
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
       - uses: actions/cache@v2
         with:
           path: vendor/bundle
