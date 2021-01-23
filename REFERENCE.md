@@ -216,7 +216,6 @@ No hyphenation and boolean support. `false` is rendered as "false" (like Rails h
 
 ```rb
 # config/initializers/hamlit.rb or somewhere
-require "hamlit/rails_template"
 Hamlit::RailsTemplate.set_options attr_quote: '"'
 ```
 
