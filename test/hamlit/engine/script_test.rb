@@ -142,5 +142,13 @@ describe Hamlit::Engine do
     it 'renders inline script with comment' do
       assert_render(%Q|<span>3</span>\n|, %q|%span= 1 + 2 # comments|)
     end
+
+    it 'tests GC.compact if available' do
+      if defined?(GC.verify_compaction_references) == 'method'
+        # This method was added in Ruby 3.0.0. Calling it this way asks the GC to
+        # move objects around, helping to find object movement bugs.
+        GC.verify_compaction_references(double_heap: true, toward: :empty)
+      end
+    end
   end
 end
