@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [2.15.1](https://github.com/k0kubun/hamlit/compare/v2.15.0...v2.15.1) - 2021-07-23
+
+### Fixed
+
+- Remove `benchmark` from the gem package to reduce its size [#186](https://github.com/k0kubun/hamlit/issues/186)
+  *Thanks to @pocke*
+
 ## [2.15.0](https://github.com/k0kubun/hamlit/compare/v2.14.6...v2.15.0) - 2021-04-12
 
 ### Added
