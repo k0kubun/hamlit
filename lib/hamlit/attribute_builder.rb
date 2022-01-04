@@ -7,7 +7,7 @@ module Hamlit::AttributeBuilder
                        defer reversed ismap seamless muted required
                        autofocus novalidate formnovalidate open pubdate
                        itemscope allowfullscreen default inert sortable
-                       truespeed typemustmatch download].freeze
+                       truespeed typemustmatch download playsinline].freeze
 
   # Java extension is not implemented for JRuby yet.
   # TruffleRuby does not implement `rb_ary_sort_bang`, etc.
