@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [2.15.2](https://github.com/k0kubun/hamlit/compare/v2.15.1...v2.15.2) - 2022-01-04
+
+### Fixed
+
+- Consider `playsinline` a boolean attribute [#187](https://github.com/k0kubun/hamlit/issues/187)
+  *Thanks to @ghiculescu*
+
 ## [2.15.1](https://github.com/k0kubun/hamlit/compare/v2.15.0...v2.15.1) - 2021-07-23
 
 ### Fixed
