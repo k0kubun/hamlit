@@ -20,6 +20,7 @@ module Hamlit
     option :actionview, type: :boolean, default: false, aliases: %w[-a]
     option :color, type: :boolean, default: true
     option :check, type: :boolean, default: false, aliases: %w[-c]
+    option :full_check, type: :boolean, default: false, aliases: %w[-C]
     def compile(file)
       code = generate_code(file)
       if options[:check]
@@ -27,6 +28,14 @@ module Hamlit
           abort error.message.split("\n").first
         end
         puts "Syntax OK"
+        return
+      elsif options[:full_check]
+        errors = []
+        errors.push validate_ruby(code, file)
+        errors.push validate_haml(code, file)
+        errors.compact!
+        abort errors.first.message.split("\n").first if errors
+        puts 'Syntax OK'
         return
       end
       puts_code(code, color: options[:color])
@@ -147,6 +156,14 @@ module Hamlit
       begin
         eval("BEGIN {return nil}; #{code}", binding, file)
       rescue ::SyntaxError # Not to be confused with Hamlit::SyntaxError
+        $!
+      end
+    end
+
+    def validate_haml(code, file)
+      begin
+        eval("#{code}", binding, file)
+      rescue Hamlit::HamlSyntaxError
         $!
       end
     end
