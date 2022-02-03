@@ -27,6 +27,7 @@ module Hamlit
       AVAILABLE_OPTIONS.each do |key|
         @options[key] = options[key]
       end
+      @check = options[:check]
     end
 
     def call(template)
@@ -35,6 +36,7 @@ module Hamlit
       end
       HamlParser.new(HamlOptions.new(@options)).call(template)
     rescue ::Hamlit::HamlError => e
+      raise e if @check
       error_with_lineno(e)
     end
 
