@@ -21,6 +21,7 @@ module Hamlit
                        hr img input isindex keygen link menuitem meta
                        param source track wbr),
       filename:     "",
+      check:        false,
     )
 
     use Parser
