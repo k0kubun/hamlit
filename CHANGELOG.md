@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [2.16.0](https://github.com/k0kubun/hamlit/compare/v2.15.2...v2.16.0) - 2022-02-03
+
+### Added
+
+- Raise an exception on a Haml-level syntax error with `hamlit compile -c`
+  [#189](https://github.com/k0kubun/hamlit/issues/189)
+  *Thanks to @dlwr*
+
 ## [2.15.2](https://github.com/k0kubun/hamlit/compare/v2.15.1...v2.15.2) - 2022-01-04
 
 ### Fixed
