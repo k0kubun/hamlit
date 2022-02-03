@@ -20,6 +20,7 @@ module Hamlit
       autoclose
       escape_html
       escape_attrs
+      check_syntax
     ].freeze
 
     def initialize(options = {})
@@ -27,7 +28,6 @@ module Hamlit
       AVAILABLE_OPTIONS.each do |key|
         @options[key] = options[key]
       end
-      @check = options[:check]
     end
 
     def call(template)
@@ -36,7 +36,7 @@ module Hamlit
       end
       HamlParser.new(HamlOptions.new(@options)).call(template)
     rescue ::Hamlit::HamlError => e
-      raise e if @check
+      raise e if @options[:check_syntax]
       error_with_lineno(e)
     end
 

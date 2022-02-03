@@ -106,7 +106,7 @@ module Hamlit
       Hamlit::Engine.options.to_h.merge(
         escape_attrs: options[:escape_attrs],
         escape_html:  options[:escape_html],
-        check: options[:check],
+        check_syntax: options[:check],
       )
     end
 
