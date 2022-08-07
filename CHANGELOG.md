@@ -26,7 +26,7 @@ project adheres to [Semantic Versioning](http://semver.org/). This change log is
   - Default: `disable_capture: true` (backward-compatible)
      - For Rails, this must be `true` anyway to use Rails-native capturing.
   - If you override the option like `disable_capture: false` in Hamlit::Template,
-    scripts starting with `=` (e.g. `= render do ...`) capture a block content.
+    scripts starting with `=` (e.g. `= render do`) capture a block content.
      - Scripts starting with `-` (e.g. `- users.each do`) are not impacted.
 
 ## [2.16.0](https://github.com/k0kubun/hamlit/compare/v2.15.2...v2.16.0) - 2022-02-03
