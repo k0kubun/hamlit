@@ -6,8 +6,9 @@ require 'hamlit/string_splitter'
 module Hamlit
   class Compiler
     class ScriptCompiler
-      def initialize(identity)
+      def initialize(identity, options)
         @identity = identity
+        @disable_capture = options[:disable_capture]
       end
 
       def compile(node, &block)
@@ -77,9 +78,10 @@ module Hamlit
            [:code, ')'],
           ]
         else
+          content = [:multi, [:newline], yield(node)]
           [:multi,
            [:block, "#{var} = #{node.value[:text]}",
-            [:multi, [:newline], yield(node)],
+            @disable_capture ? content : [:capture, Temple::Utils.unique_name, content],
            ],
           ]
         end

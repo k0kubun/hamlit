@@ -42,4 +42,22 @@ describe Hamlit::Template do
       assert_equal %Q|<script>\n|, result
     end
   end
+
+  describe 'disable_capture' do
+    it 'captures a block content' do
+      object = Object.new
+      def object.render(&block)
+        block.call
+      end
+      result = compile_template(:haml, <<-'HAML'.unindent, escape_html: false, disable_capture: false).render(object, {})
+        %h1 out
+        = render do
+          %h2 in
+      HAML
+      assert_equal <<-'HTML'.unindent, result
+        <h1>out</h1>
+        <h2>in</h2>
+      HTML
+    end
+  end
 end
