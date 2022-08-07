@@ -78,10 +78,9 @@ module Hamlit
            [:code, ')'],
           ]
         else
-          content = [:multi, [:newline], yield(node)]
           [:multi,
            [:block, "#{var} = #{node.value[:text]}",
-            @disable_capture ? content : [:capture, Temple::Utils.unique_name, content],
+            [:multi, [:newline], @disable_capture ? yield(node) : [:capture, Temple::Utils.unique_name, yield(node)]]
            ],
           ]
         end

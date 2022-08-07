@@ -133,10 +133,12 @@ describe Hamlit::Engine do
     end
 
     it 'renders comment-only nested script' do
-      assert_render('1', <<-HAML.unindent)
-        = 1.times do # comment
-          - # comment only
-      HAML
+      [false, true].each do |disable_capture|
+        assert_render('1', <<-HAML.unindent, disable_capture: false)
+          = 1.times do # comment
+            - # comment only
+        HAML
+      end
     end
 
     it 'renders inline script with comment' do
