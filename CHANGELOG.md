@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [2.16.1](https://github.com/k0kubun/hamlit/compare/v2.16.0...v2.16.1) - 2022-08-07
+
+### Added
+
+- Introduce `:disable_capture` option to capture a block 
+  - Default: `disable_capture: true` (backward-compatible)
+     - For Rails, this must be `true` anyway to use Rails-native capturing.
+  - If you override the option like `disable_capture: false` in Hamlit::Template,
+    you can capture a block content like `= render do ...`.
+
 ## [2.16.0](https://github.com/k0kubun/hamlit/compare/v2.15.2...v2.16.0) - 2022-02-03
 
 ### Added
