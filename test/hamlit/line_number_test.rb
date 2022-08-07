@@ -25,7 +25,7 @@ describe Hamlit::Engine do
     end
 
     it 'renders dynamic script with children' do
-      assert_render(<<-HTML.unindent, <<-HAML.unindent)
+      assert_render(<<-HTML.unindent, <<-HAML.unindent, disable_capture: true)
         1
         3
         3

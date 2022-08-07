@@ -22,7 +22,7 @@ module Hamlit
                        param source track wbr),
       filename:     "",
       check_syntax: false,
-      disable_capture: true,
+      disable_capture: false,
     )
 
     use Parser
