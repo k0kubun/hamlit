@@ -105,50 +105,6 @@ describe Hamlit::Engine do
   end
 
   describe 'filters' do
-    describe 'coffee filter' do
-      it 'renders static filter' do
-        assert_render(<<-HTML.unindent, <<-'HAML'.unindent)
-          <script>
-            (function() {
-              jQuery(function($) {
-                console.log('3');
-                return console.log('4');
-              });
-            
-            }).call(this);
-          </script>
-          5
-        HTML
-          :coffee
-            jQuery ($) ->
-              console.log('#{__LINE__}')
-              console.log('#{__LINE__}')
-          = __LINE__
-        HAML
-      end
-
-      it 'renders dynamic filter' do
-        assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <script>
-            (function() {
-              jQuery(function($) {
-                console.log('3');
-                return console.log('4');
-              });
-            
-            }).call(this);
-          </script>
-          5
-        HTML
-          :coffee
-            jQuery ($) ->
-              console.log('3')
-              console.log('4')
-          = __LINE__
-        HAML
-      end
-    end unless /java/ === RUBY_PLATFORM # execjs is not working with Travis JRuby environment
-
     describe 'css filter' do
       it 'renders static filter' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)

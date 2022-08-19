@@ -32,7 +32,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'benchmark_driver'
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'coffee-script'
   spec.add_development_dependency 'erubi'
   spec.add_development_dependency 'haml', '>= 5'
   spec.add_development_dependency 'less'
