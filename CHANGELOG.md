@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [3.0.1](https://github.com/k0kubun/hamlit/compare/v3.0.0...v3.0.1) - 2022-08-18
+
+### Changed
+
+- coffee-script is removed from development dependency
+  - It's not runtime dependency, so it shouldn't impact your application
+  - `:coffee` filter still works if you explicitly install coffee-script,
+    however, it's no longer maintained and possibly removed in the future.
+
 ## [3.0.0](https://github.com/k0kubun/hamlit/compare/v2.16.2...v3.0.0) - 2022-08-07
 
 ### Changed
