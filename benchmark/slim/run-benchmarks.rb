@@ -43,7 +43,6 @@ require 'tilt'
 require 'erubi'
 require 'erb'
 require 'haml'
-require 'faml'
 require 'hamlit'
 
 class SlimBenchmarks
@@ -66,14 +65,12 @@ class SlimBenchmarks
     context.instance_eval %{
       def run_erubi; #{Erubi::Engine.new(@erb_code).src}; end
       def run_slim_ugly; #{Slim::Engine.new.call @slim_code}; end
-      def run_faml; #{Faml::Engine.new.call @haml_code}; end
       def run_hamlit; #{Hamlit::Engine.new.call @haml_code}; end
     }
 
     bench("erubi v#{Erubi::VERSION}")   { context.run_erubi }     unless @only_haml
     bench("slim v#{Slim::VERSION}")     { context.run_slim_ugly } unless @only_haml
     bench("haml v#{Haml::VERSION}")     { context.run_haml_ugly }
-    bench("faml v#{Faml::VERSION}")     { context.run_faml }
     bench("hamlit v#{Hamlit::VERSION}") { context.run_hamlit }
   end
 

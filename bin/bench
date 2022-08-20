@@ -2,7 +2,6 @@
 
 require 'bundler/setup'
 require 'hamlit'
-require 'faml'
 require 'thor'
 require 'benchmark/ips'
 require_relative '../benchmark/utils/benchmark_ips_extension'
@@ -26,7 +25,6 @@ class Bench < Thor
 
     Benchmark.ips do |x|
       x.report("haml v#{Haml::VERSION}") { Haml::Engine.new(haml, escape_html: true, escape_attrs: true).precompiled }
-      x.report("faml v#{Faml::VERSION}") { Faml::Engine.new.call(haml) }
       x.report("hamlit v#{Hamlit::VERSION}") { Hamlit::Engine.new.call(haml) }
       x.compare!
     end
@@ -44,12 +42,10 @@ class Bench < Thor
     end
 
     Haml::Engine.new(haml, escape_html: true, escape_attrs: true).def_method(object, :haml)
-    object.instance_eval "def faml; #{Faml::Engine.new.call(haml)}; end"
     object.instance_eval "def hamlit; #{Hamlit::Engine.new.call(haml)}; end"
 
     Benchmark.ips do |x|
       x.report("haml v#{Haml::VERSION}") { object.haml }
-      x.report("faml v#{Faml::VERSION}") { object.faml }
       x.report("hamlit v#{Hamlit::VERSION}") { object.hamlit }
       x.compare!
     end
@@ -60,8 +56,6 @@ class Bench < Thor
     haml = File.read(file)
     puts "#{?= * 49}\n Haml Source: #{file}\n#{?= * 49}"
     puts Haml::Engine.new(haml, escape_html: true, escape_attrs: true).precompiled
-    puts "\n#{?= * 49}\n Faml Source: #{file}\n#{?= * 49}"
-    puts Faml::Engine.new.call(haml)
     puts "\n#{?= * 49}\n Hamlit Source: #{file}\n#{?= * 49}"
     puts Hamlit::Engine.new.call(haml)
   end
