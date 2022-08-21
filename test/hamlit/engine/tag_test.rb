@@ -205,11 +205,14 @@ describe Hamlit::Engine do
 
       assert_render(<<-HTML.unindent, <<-HAML.unindent, format: :xhtml)
         <span>123</span>
+        <p>123</p>
       HTML
         - foo = proc do |num|
           %span= num
 
         = foo.call 123
+        - foo.call 123
+        %p 123
       HAML
     end
   end
