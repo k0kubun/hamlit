@@ -196,5 +196,21 @@ describe Hamlit::Engine do
         %div
       HAML
     end
+
+    it 'works with inline procs' do
+      # test passes if one writes
+      # - foo.call 123
+      # fails with
+      # = foo.call 123
+
+      assert_render(<<-HTML.unindent, <<-HAML.unindent, format: :xhtml)
+        <span>123</span>
+      HTML
+        - foo = proc do |num|
+          %span= num
+
+        = foo.call 123
+      HAML
+    end
   end
 end
