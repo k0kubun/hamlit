@@ -5,12 +5,22 @@
 
 Hamlit is a high performance [Haml](https://github.com/haml/haml) implementation.
 
+## Project status
+
+**Hamlit's implementation was copied to Haml 6.**
+From Haml 6, you don't need to switch to Hamlit.
+
+Both Haml 6 and Hamlit are still maintained by [@k0kubun](https://github.com/k0kubun).
+While you don't need to immediately deprecate Hamlit, Haml 6 has more maintainers
+and you'd better start a new project with Haml rather than Hamlit,
+given no performance difference between them.
+
 ## Introduction
 
 ### What is Hamlit?
 Hamlit is another implementation of [Haml](https://github.com/haml/haml).
-With some [limitations](REFERENCE.md#limitations) by design for performance,
-Hamlit is **1.94x times faster** than original haml gem in [this benchmark](benchmark/slim/run-benchmarks.rb),
+With some [Hamlit's characteristics](REFERENCE.md#hamlits-characteristics) for performance,
+Hamlit is **1.94x times faster** than the original Haml 5 in [this benchmark](benchmark/run-benchmarks.rb),
 which is an HTML-escaped version of [slim-template/slim's one](https://github.com/slim-template/slim/blob/4.1.0/benchmarks/run-benchmarks.rb) for fairness. ([Result on Travis](https://travis-ci.org/github/k0kubun/hamlit/jobs/732178446))
 
 <img src="https://raw.githubusercontent.com/k0kubun/hamlit/afcc2b36c4861c2f764baa09afd9530ca25eeafa/benchmark/graph/graph.png" width="600x" alt="Hamlit Benchmark" />
@@ -23,11 +33,12 @@ which is an HTML-escaped version of [slim-template/slim's one](https://github.co
          haml v5.2.0:   127834.4 i/s - 1.94x slower
 ```
 
-### Why is Hamlit faster?
+### Why is Hamlit fast?
 
 #### Less string concatenation by design
-As written in [limitations](REFERENCE.md#limitations), Hamlit drops some not-so-important features which require
-works on runtime. With the optimized language design, we can reduce the string concatenation
+As written in [Hamlit's characteristics](REFERENCE.md#hamlits-characteristics),
+Hamlit drops some not-so-important features which require works on runtime.
+With the optimized language design, we can reduce the string concatenation
 to build attributes.
 
 #### Static analyzer
@@ -42,7 +53,7 @@ with C extension.
 
 ## Usage
 
-Hamlit currently supports Ruby 2.1 and higher. See [REFERENCE.md](REFERENCE.md) for detail features of Hamlit.
+See [REFERENCE.md](REFERENCE.md) for details.
 
 ### Rails
 
@@ -96,40 +107,6 @@ $ hamlit render in.haml
 ```
 
 ## Contributing
-
-### Test latest version
-
-```rb
-# Gemfile
-gem 'hamlit', github: 'k0kubun/hamlit', submodules: true
-```
-
-### Development
-
-Contributions are welcomed. It'd be good to see
-[Temple's EXPRESSIONS.md](https://github.com/judofyr/temple/blob/v0.7.6/EXPRESSIONS.md)
-to learn Temple which is a template engine framework used in Hamlit.
-
-```bash
-$ git clone --recursive https://github.com/k0kubun/hamlit
-$ cd hamlit
-$ bundle install
-
-# Run all tests
-$ bundle exec rake test
-
-# Run one test
-$ bundle exec ruby -Ilib:test -rtest_helper test/hamlit/line_number_test.rb -l 12
-
-# Show compiling/rendering result of some template
-$ bundle exec exe/hamlit compile in.haml
-$ bundle exec exe/hamlit render in.haml
-
-# Use rails app to debug Hamlit
-$ cd sample/rails
-$ bundle install
-$ bundle exec rails s
-```
 
 ### Reporting an issue
 
