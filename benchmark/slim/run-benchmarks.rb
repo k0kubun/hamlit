@@ -60,8 +60,14 @@ class SlimBenchmarks
   def init_compiled_benches
     context = Context.new
 
-    haml_ugly = Haml::Engine.new(@haml_code, format: :html5, escape_html: true)
-    haml_ugly.def_method(context, :run_haml_ugly)
+    if Gem::Version.new(Haml::VERSION) >= Gem::Version.new('6.0.0')
+      context.instance_eval %{
+        def run_haml; #{Haml::Engine.new.call @haml_code}; end
+      }
+    else
+      haml = Haml::Engine.new(@haml_code, format: :html5, escape_html: true)
+      haml.def_method(context, :run_haml)
+    end
     context.instance_eval %{
       def run_erubi; #{Erubi::Engine.new(@erb_code).src}; end
       def run_slim_ugly; #{Slim::Engine.new.call @slim_code}; end
@@ -70,7 +76,7 @@ class SlimBenchmarks
 
     bench("erubi v#{Erubi::VERSION}")   { context.run_erubi }     unless @only_haml
     bench("slim v#{Slim::VERSION}")     { context.run_slim_ugly } unless @only_haml
-    bench("haml v#{Haml::VERSION}")     { context.run_haml_ugly }
+    bench("haml v#{Haml::VERSION}")     { context.run_haml }
     bench("hamlit v#{Hamlit::VERSION}") { context.run_hamlit }
   end
 
