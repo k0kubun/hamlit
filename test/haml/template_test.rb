@@ -4,14 +4,6 @@ require 'haml/mocks/article'
 require 'action_pack/version'
 require 'hamlit/rails_template'
 
-module Haml::Filters::Test
-  include Haml::Filters::Base
-
-  def render(text)
-    "TESTING HAHAHAHA!"
-  end
-end
-
 module Hamlit::RailsHelpers
   def test_partial(name, locals = {})
     Hamlit::Template.new { File.read(File.join(TemplateTest::TEMPLATE_PATH, "_#{name}.haml")) }.render(self, locals)
@@ -98,8 +90,7 @@ class TemplateTest < Haml::TestCase
   end
 
   def assert_renders_correctly(name, &render_method)
-    old_options = Haml::Template.options.dup
-    Haml::Template.options[:escape_html] = false
+    Haml::Template.options[:escape_html], old_escape_html = false, Haml::Template.options[:escape_html]
     render_method ||= proc { |n| @base.render(template: n) }
 
     silence_warnings do
@@ -115,7 +106,7 @@ class TemplateTest < Haml::TestCase
       raise e
     end
   ensure
-    Haml::Template.options = old_options
+    Haml::Template.options[:escape_html] = old_escape_html
   end
 
   def test_empty_render_should_remain_empty
@@ -315,7 +306,7 @@ HAML
     assert(render("Foo", :action_view).html_safe?)
   end
 
-  def test_xss_html_escaping_with_non_strings
+  def test_xss_html_escaping_with_non_strings; skip # no such helper
     assert_haml_ugly("= html_escape(4)")
   end
 

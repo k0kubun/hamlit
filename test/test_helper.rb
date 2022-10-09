@@ -37,7 +37,11 @@ module RenderHelper
     options = options.dup
     locals  = options.delete(:locals) || {}
     haml_options = { escape_html: true, escape_attrs: true }
-    Haml::Engine.new(haml, haml_options.merge(options)).render(Object.new, locals)
+    if Gem::Version.new(Haml::VERSION) >= Gem::Version.new('6.0.0')
+      Haml::Template.new(haml_options.merge(options)) { haml }.render(Object.new, locals)
+    else
+      Haml::Engine.new(haml, haml_options.merge(options)).render(Object.new, locals)
+    end
   end
 
   def render_hamlit(haml, options = {})
@@ -74,7 +78,11 @@ class Haml::TestCase < BASE_TEST_CLASS
     hamlit_base = { escape_html: true }
     scope  = options.delete(:scope) || Object.new
     locals = options.delete(:locals) || {}
-    haml_result   = Haml::Engine.new(text, haml_base.merge(options)).render(scope, locals)
+    if Gem::Version.new(Haml::VERSION) >= Gem::Version.new('6.0.0')
+      haml_result = Haml::Template.new(haml_base.merge(options)) { text }.render(scope, locals)
+    else
+      haml_result = Haml::Engine.new(text, haml_base.merge(options)).render(scope, locals)
+    end
     hamlit_result = Hamlit::Template.new(hamlit_base.merge(options)) { text }.render(scope, locals)
     assert_equal haml_result, hamlit_result
   end

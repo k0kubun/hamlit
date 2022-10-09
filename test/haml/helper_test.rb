@@ -70,7 +70,7 @@ HAML
     assert_equal("<>&\n", render(haml, :action_view))
   end
 
-  def test_flatten
+  def test_flatten; skip # Haml::Helpers test
     assert_equal("FooBar", Haml::Helpers.flatten("FooBar"))
 
     assert_equal("FooBar", Haml::Helpers.flatten("Foo\rBar"))
@@ -529,7 +529,7 @@ HAML
                  render("= preserve do\n  %pre\n    Foo\n    Bar\n  Foo\n  Bar"))
   end
 
-  def test_init_haml_helpers
+  def test_init_haml_helpers; skip # Haml::Helpers test
     context = Object.new
     class << context
       include Haml::Helpers
@@ -609,11 +609,11 @@ HAML
 HAML
   end
 
-  def test_html_escape
+  def test_html_escape; skip # Haml::Helpers test
     assert_equal "&quot;&gt;&lt;&amp;", Haml::Helpers.html_escape('"><&')
   end
 
-  def test_html_escape_should_work_on_frozen_strings
+  def test_html_escape_should_work_on_frozen_strings; skip # Haml::Helpers test
     begin
       assert Haml::Helpers.html_escape('foo'.freeze)
     rescue => e
@@ -621,13 +621,13 @@ HAML
     end
   end
 
-  def test_html_escape_encoding
+  def test_html_escape_encoding; skip # Haml::Helpers test
     old_stderr, $stderr = $stderr, StringIO.new
     string = "\"><&\u00e9" # if you're curious, u00e9 is "LATIN SMALL LETTER E WITH ACUTE"
     assert_equal "&quot;&gt;&lt;&amp;\u00e9", Haml::Helpers.html_escape(string)
     assert $stderr.string == "", "html_escape shouldn't generate warnings with UTF-8 strings: #{$stderr.string}"
-  ensure
-    $stderr = old_stderr
+  #ensure
+  #  $stderr = old_stderr
   end
 
   def test_html_escape_non_string; skip
@@ -635,11 +635,11 @@ HAML
     assert_equal('4.58', Haml::Helpers.html_escape_without_haml_xss(4.58))
   end
 
-  def test_escape_once
+  def test_escape_once; skip # Haml::Helpers test
     assert_equal "&quot;&gt;&lt;&amp;", Haml::Helpers.escape_once('"><&')
   end
 
-  def test_escape_once_leaves_entity_references
+  def test_escape_once_leaves_entity_references; skip # Haml::Helpers test
     assert_equal "&quot;&gt;&lt;&amp; &nbsp;", Haml::Helpers.escape_once('"><& &nbsp;')
   end
 
@@ -648,13 +648,13 @@ HAML
     assert_equal "&quot;&gt;&lt;&amp; &#x00a0;", Haml::Helpers.escape_once('"><& &#x00a0;') #hexadecimal
   end
 
-  def test_escape_once_encoding
+  def test_escape_once_encoding; skip # Haml::Helpers test
     old_stderr, $stderr = $stderr, StringIO.new
     string = "\"><&\u00e9 &nbsp;"
     assert_equal "&quot;&gt;&lt;&amp;\u00e9 &nbsp;", Haml::Helpers.escape_once(string)
     assert $stderr.string == "", "html_escape shouldn't generate warnings with UTF-8 strings: #{$stderr.string}"
-  ensure
-    $stderr = old_stderr
+  #ensure
+  #  $stderr = old_stderr
   end
 
   def test_html_attrs_xhtml; skip
@@ -687,7 +687,7 @@ HAML
                   render("%html{html_attrs('es-AR')}", :format => :html5))
   end
 
-  def test_escape_once_should_work_on_frozen_strings
+  def test_escape_once_should_work_on_frozen_strings; skip # Haml::Helpers test
     begin
       Haml::Helpers.escape_once('foo'.freeze)
     rescue => e

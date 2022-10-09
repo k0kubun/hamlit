@@ -11,7 +11,11 @@ class UglyTest < MiniTest::Test
   HAMLIT_DEFAULT_OPTIONS = { escape_html: true }.freeze
 
   def self.haml_result(haml, options, locals)
-    Haml::Engine.new(haml, HAML_DEFAULT_OPTIONS.merge(options)).render(Object.new, locals)
+    if Gem::Version.new(Haml::VERSION) >= Gem::Version.new('6.0.0')
+      Haml::Template.new(HAML_DEFAULT_OPTIONS.merge(options)) { haml }.render(Object.new, locals)
+    else
+      Haml::Engine.new(haml, HAML_DEFAULT_OPTIONS.merge(options)).render(Object.new, locals)
+    end
   end
 
   def self.hamlit_result(haml, options, locals)

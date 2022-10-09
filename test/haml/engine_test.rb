@@ -1402,13 +1402,13 @@ HAML
     assert_nil(scope.send(:haml_buffer))
   end
 
-  def test_render_proc_should_raise_haml_syntax_error_not_ruby_syntax_error
+  def test_render_proc_should_raise_haml_syntax_error_not_ruby_syntax_error; skip # Haml::Engine test
     assert_raises(Haml::SyntaxError) do
       Haml::Engine.new("%p{:foo => !}").render_proc(Object.new, :foo).call
     end
   end
 
-  def test_render_should_raise_haml_syntax_error_not_ruby_syntax_error
+  def test_render_should_raise_haml_syntax_error_not_ruby_syntax_error; skip # Haml::Engine test
     assert_raises(Haml::SyntaxError) do
       Haml::Engine.new("%p{:foo => !}").render
     end
@@ -1475,7 +1475,7 @@ HAML
     assert_haml_ugly('%a{:b => "a #@foo b"}', :scope => scope)
   end
 
-  def test_interpolates_global_vars_in_attribute_values
+  def test_interpolates_global_vars_in_attribute_values; skip # Haml::Engine test
     # make sure the value isn't just interpolated in during template compilation
     engine = Haml::Engine.new('%a{:b => "a #$global_var_for_testing b"}')
     $global_var_for_testing = 'bar'
@@ -2085,7 +2085,7 @@ HTML
 HAML
   end
 
-  def assert_converts_template_properly
+  def assert_converts_template_properly; skip # Haml::Engine test
     engine = Haml::Engine.new(<<HAML.encode("iso-8859-1"), :encoding => "macRoman")
 %p bâr
 %p föö
