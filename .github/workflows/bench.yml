@@ -13,18 +13,6 @@ on:
 jobs:
   bench:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - slim: 1
-          - template: 'benchmark/boolean_attribute.haml,benchmark/class_attribute.haml,benchmark/id_attribute.haml,benchmark/data_attribute.haml,benchmark/common_attribute.haml'
-          - template: 'benchmark/dynamic_attributes/boolean_attribute.haml,benchmark/dynamic_attributes/class_attribute.haml,benchmark/dynamic_attributes/id_attribute.haml,benchmark/dynamic_attributes/data_attribute.haml,benchmark/dynamic_attributes/common_attribute.haml'
-          - template: 'benchmark/etc/attribute_builder.haml'
-          - template: 'benchmark/etc/static_analyzer.haml'
-          - template: 'benchmark/etc/string_interpolation.haml'
-          - template: 'test/haml/templates/standard.haml'
-            compile: 1
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
@@ -40,7 +28,3 @@ jobs:
       - name: bundle install
         run: bundle config path vendor/bundle && bundle install -j$(nproc) --retry 3
       - run: bundle exec rake bench
-        env:
-          SLIM_BENCH: ${{ matrix.slim }}
-          TEMPLATE: ${{ matrix.template }}
-          COMPILE: ${{ matrix.compile }}

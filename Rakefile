@@ -104,11 +104,7 @@ end
 
 desc 'bench task for CI'
 task bench: :compile do
-  if ENV['SLIM_BENCH'] == '1'
-    cmd = %w[bundle exec ruby benchmark/slim/run-benchmarks.rb]
-  else
-    cmd = ['bin/bench', 'bench', ('-c' if ENV['COMPILE'] == '1'), *ENV['TEMPLATE'].split(',')].compact
-  end
+  cmd = %w[bundle exec ruby benchmark/run-benchmarks.rb]
   exit system(*cmd)
 end
 
