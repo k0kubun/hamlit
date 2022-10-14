@@ -12,7 +12,7 @@ module Hamlit
   class Engine < Temple::Engine
     define_options(
       :buffer_class,
-      generator:    Temple::Generators::ArrayBuffer,
+      generator:    Temple::Generators::StringBuffer,
       format:       :html,
       attr_quote:   "'",
       escape_html:  true,
