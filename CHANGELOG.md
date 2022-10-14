@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [3.0.2](https://github.com/k0kubun/hamlit/compare/v3.0.1...v3.0.2) - 2022-10-13
+
+### Changed
+
+- `Hamlit::Engine` and `Hamlit::Template` use StringBuffer instead of ArrayBuffer
+  - It seems more performant in many cases with recent Ruby versions.
+  - `Hamlit::RailsTemplate` is not affected.
+
 ## [3.0.1](https://github.com/k0kubun/hamlit/compare/v3.0.0...v3.0.1) - 2022-08-18
 
 ### Changed
