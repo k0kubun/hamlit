@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
 [keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
 
+## [3.0.3](https://github.com/k0kubun/hamlit/compare/v3.0.2...v3.0.3) - 2022-11-07
+
+### Added
+
+- Support sass-embedded [#196](https://github.com/k0kubun/hamlit/issues/196)
+  *Thanks to @ntkme*
+
 ## [3.0.2](https://github.com/k0kubun/hamlit/compare/v3.0.1...v3.0.2) - 2022-10-13
 
 ### Changed
