@@ -21,7 +21,7 @@ given no performance difference between them.
 Hamlit is another implementation of [Haml](https://github.com/haml/haml).
 With some [Hamlit's characteristics](REFERENCE.md#hamlits-characteristics) for performance,
 Hamlit is **1.94x times faster** than the original Haml 5 in [this benchmark](benchmark/run-benchmarks.rb),
-which is an HTML-escaped version of [slim-template/slim's one](https://github.com/slim-template/slim/blob/4.1.0/benchmarks/run-benchmarks.rb) for fairness. ([Result on Travis](https://travis-ci.org/github/k0kubun/hamlit/jobs/732178446))
+which is an HTML-escaped version of [slim-template/slim's one](https://github.com/slim-template/slim/blob/4.1.0/benchmarks/run-benchmarks.rb) for fairness.
 
 <img src="https://raw.githubusercontent.com/k0kubun/hamlit/afcc2b36c4861c2f764baa09afd9530ca25eeafa/benchmark/graph/graph.png" width="600x" alt="Hamlit Benchmark" />
 
