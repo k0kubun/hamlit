@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
     spec.platform = 'java'
   else
     spec.extensions = ['ext/hamlit/extconf.rb']
-    spec.required_ruby_version = '>= 2.1.0'
+    spec.required_ruby_version = '>= 3.2.0'
   end
 
   spec.add_dependency 'temple', '>= 0.8.2'
