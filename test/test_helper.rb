@@ -36,7 +36,7 @@ module RenderHelper
   def render_haml(haml, options = {})
     options = options.dup
     locals  = options.delete(:locals) || {}
-    haml_options = { escape_html: true, escape_attrs: true }
+    haml_options = { escape_html: true, escape_attrs: true, attr_quote: '"' }
     if Gem::Version.new(Haml::VERSION) >= Gem::Version.new('6.0.0')
       Haml::Template.new(haml_options.merge(options)) { haml }.render(Object.new, locals)
     else
@@ -74,7 +74,7 @@ class Haml::TestCase < BASE_TEST_CLASS
     if RUBY_ENGINE == 'truffleruby'
       skip 'truffleruby cannot run Haml'
     end
-    haml_base = { escape_html: true, escape_attrs: true }
+    haml_base = { escape_html: true, escape_attrs: true, attr_quote: '"' }
     hamlit_base = { escape_html: true }
     scope  = options.delete(:scope) || Object.new
     locals = options.delete(:locals) || {}

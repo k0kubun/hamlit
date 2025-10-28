@@ -33,19 +33,19 @@ describe Hamlit::RailsTemplate do
   end
 
   specify 'attribute escape' do
-    assert_equal %Q|<a href='&lt;script&gt;alert(&quot;a&quot;);&lt;/script&gt;'></a>\n|, render(<<-HAML.unindent)
+    assert_equal %Q|<a href="&lt;script&gt;alert(&quot;a&quot;);&lt;/script&gt;"></a>\n|, render(<<-HAML.unindent)
       %a{ href: '<script>alert("a");</script>' }
     HAML
-    assert_equal %Q|<a href='&lt;script&gt;'></a>\n|, render(<<-HAML.unindent)
+    assert_equal %Q|<a href="&lt;script&gt;"></a>\n|, render(<<-HAML.unindent)
       %a{ href: '<script>'.html_safe }
     HAML
   end
 
   it 'forces to escape html_safe attributes' do
     assert_equal <<-'HTML'.unindent, render(<<-HAML.unindent)
-      <meta content='&#39;&quot;'>
-      <meta content='&#39;&quot;'>
-      <meta content='&#39;&quot;'>
+      <meta content="&#39;&quot;">
+      <meta content="&#39;&quot;">
+      <meta content="&#39;&quot;">
     HTML
       %meta{ content: %{'"}.html_safe }
       - val = %{'"}.html_safe
@@ -56,7 +56,7 @@ describe Hamlit::RailsTemplate do
   end
 
   specify 'boolean attributes' do
-    assert_equal %Q|<span checked='no' disabled></span>\n|, render(<<-HAML.unindent)
+    assert_equal %Q|<span checked="no" disabled></span>\n|, render(<<-HAML.unindent)
       - val = 'no'
       %span{ disabled: true, checked: val, autoplay: false }
     HAML
@@ -100,7 +100,7 @@ describe Hamlit::RailsTemplate do
 
   specify 'capture_haml' do
     assert_equal <<-HTML.unindent, render(<<-'HAML'.unindent)
-      <div class='capture'><span>
+      <div class="capture"><span>
       <p>Capture</p>
       </span>
       </div>

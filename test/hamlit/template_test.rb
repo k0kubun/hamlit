@@ -22,12 +22,12 @@ describe Hamlit::Template do
   describe 'escape_attrs' do
     it 'escapes attrs by default' do
       result = compile_template(:haml, %q|%div{ data: '<script>' }|).render(Object.new, {})
-      assert_equal %Q|<div data='&lt;script&gt;'></div>\n|, result
+      assert_equal %Q|<div data="&lt;script&gt;"></div>\n|, result
     end
 
     it 'can be configured not to escape attrs' do
       result = compile_template(:haml, %q|%div{ data: '<script>' }|, escape_attrs: false).render(Object.new, {})
-      assert_equal %Q|<div data='<script>'></div>\n|, result
+      assert_equal %Q|<div data="<script>"></div>\n|, result
     end
   end
 

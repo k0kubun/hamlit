@@ -2,7 +2,7 @@
 headers:
   an XHTML XML prolog:
     haml: "!!! XML"
-    html: "<?xml version='1.0' encoding='utf-8' ?>"
+    html: "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
     config:
       format: xhtml
   an XHTML default (transitional) doctype:
@@ -96,28 +96,28 @@ basic Haml tags and CSS:
       format: html5
   a tag with a CSS class:
     haml: "%p.class1"
-    html: "<p class='class1'></p>"
+    html: "<p class=\"class1\"></p>"
   a tag with multiple CSS classes:
     haml: "%p.class1.class2"
-    html: "<p class='class1 class2'></p>"
+    html: "<p class=\"class1 class2\"></p>"
   a tag with a CSS id:
     haml: "%p#id1"
-    html: "<p id='id1'></p>"
+    html: "<p id=\"id1\"></p>"
   a tag with multiple CSS id's:
     haml: "%p#id1#id2"
-    html: "<p id='id2'></p>"
+    html: "<p id=\"id2\"></p>"
   a tag with a class followed by an id:
     haml: "%p.class1#id1"
-    html: "<p class='class1' id='id1'></p>"
+    html: "<p class=\"class1\" id=\"id1\"></p>"
   a tag with an id followed by a class:
     haml: "%p#id1.class1"
-    html: "<p class='class1' id='id1'></p>"
+    html: "<p class=\"class1\" id=\"id1\"></p>"
   an implicit div with a CSS id:
     haml: "#id1"
-    html: "<div id='id1'></div>"
+    html: "<div id=\"id1\"></div>"
   an implicit div with a CSS class:
     haml: ".class1"
-    html: "<div class='class1'></div>"
+    html: "<div class=\"class1\"></div>"
   multiple simple Haml tags:
     haml: |-
       %div
@@ -148,20 +148,20 @@ tags with unusual HTML characters:
 tags with unusual CSS identifiers:
   an all-numeric class:
     haml: ".123"
-    html: "<div class='123'></div>"
+    html: "<div class=\"123\"></div>"
   a class with underscores:
     haml: ".__"
-    html: "<div class='__'></div>"
+    html: "<div class=\"__\"></div>"
   a class with dashes:
     haml: ".--"
-    html: "<div class='--'></div>"
+    html: "<div class=\"--\"></div>"
 tags with inline content:
   Inline content simple tag:
     haml: "%p hello"
     html: "<p>hello</p>"
   Inline content tag with CSS:
     haml: "%p.class1 hello"
-    html: "<p class='class1'>hello</p>"
+    html: "<p class=\"class1\">hello</p>"
   Inline content multiple simple tags:
     haml: |-
       %div
@@ -187,7 +187,7 @@ tags with nested content:
       %p.class1
         hello
     html: |-
-      <p class='class1'>
+      <p class=\"class1\">
         hello
       </p>
   Nested content multiple simple tags:
@@ -206,46 +206,46 @@ tags with nested content:
       </div>
 tags with HTML-style attributes:
   HTML-style one attribute:
-    haml: "%p(a='b')"
-    html: "<p a='b'></p>"
+    haml: "%p(a=\"b\")"
+    html: "<p a=\"b\"></p>"
   HTML-style multiple attributes:
-    haml: "%p(a='b' c='d')"
-    html: "<p a='b' c='d'></p>"
+    haml: "%p(a=\"b\" c=\"d\")"
+    html: "<p a=\"b\" c=\"d\"></p>"
   HTML-style attributes separated with newlines:
     haml: |-
-      %p(a='b'
-        c='d')
-    html: "<p a='b' c='d'></p>"
+      %p(a=\"b\"
+        c=\"d\")
+    html: "<p a=\"b\" c=\"d\"></p>"
   HTML-style interpolated attribute:
     haml: '%p(a="#{var}")'
-    html: "<p a='value'></p>"
+    html: "<p a=\"value\"></p>"
     locals:
       var: value
   HTML-style 'class' as an attribute:
-    haml: "%p(class='class1')"
-    html: "<p class='class1'></p>"
+    haml: "%p(class=\"class1\")"
+    html: "<p class=\"class1\"></p>"
   HTML-style tag with a CSS class and 'class' as an attribute:
-    haml: "%p.class2(class='class1')"
-    html: "<p class='class1 class2'></p>"
+    haml: "%p.class2(class=\"class1\")"
+    html: "<p class=\"class1 class2\"></p>"
   HTML-style tag with 'id' as an attribute:
-    haml: "%p(id='1')"
-    html: "<p id='1'></p>"
+    haml: "%p(id=\"1\")"
+    html: "<p id=\"1\"></p>"
   HTML-style tag with a CSS id and 'id' as an attribute:
-    haml: "%p#id(id='1')"
-    html: "<p id='id_1'></p>"
+    haml: "%p#id(id=\"1\")"
+    html: "<p id=\"id_1\"></p>"
   HTML-style tag with a variable attribute:
     haml: "%p(class=var)"
-    html: "<p class='hello'></p>"
+    html: "<p class=\"hello\"></p>"
     locals:
       var: hello
   HTML-style tag with a CSS class and 'class' as a variable attribute:
     haml: ".hello(class=var)"
-    html: "<div class='hello world'></div>"
+    html: "<div class=\"hello world\"></div>"
     locals:
       var: world
   HTML-style tag multiple CSS classes (sorted correctly):
     haml: ".z(class=var)"
-    html: "<div class='a z'></div>"
+    html: "<div class=\"a z\"></div>"
     locals:
       var: a
   HTML-style tag with an atomic attribute:
@@ -254,63 +254,63 @@ tags with HTML-style attributes:
 tags with Ruby-style attributes:
   Ruby-style one attribute:
     haml: "%p{:a => 'b'}"
-    html: "<p a='b'></p>"
+    html: "<p a=\"b\"></p>"
     optional: true
   Ruby-style attributes hash with whitespace:
     haml: "%p{  :a  =>  'b'  }"
-    html: "<p a='b'></p>"
+    html: "<p a=\"b\"></p>"
     optional: true
   Ruby-style interpolated attribute:
     haml: '%p{:a =>"#{var}"}'
-    html: "<p a='value'></p>"
+    html: "<p a=\"value\"></p>"
     optional: true
     locals:
       var: value
   Ruby-style multiple attributes:
     haml: "%p{ :a => 'b', 'c' => 'd' }"
-    html: "<p a='b' c='d'></p>"
+    html: "<p a=\"b\" c=\"d\"></p>"
     optional: true
   Ruby-style attributes separated with newlines:
     haml: |-
       %p{ :a => 'b',
         'c' => 'd' }
-    html: "<p a='b' c='d'></p>"
+    html: "<p a=\"b\" c=\"d\"></p>"
     optional: true
   Ruby-style 'class' as an attribute:
     haml: "%p{:class => 'class1'}"
-    html: "<p class='class1'></p>"
+    html: "<p class=\"class1\"></p>"
     optional: true
   Ruby-style tag with a CSS class and 'class' as an attribute:
     haml: "%p.class2{:class => 'class1'}"
-    html: "<p class='class1 class2'></p>"
+    html: "<p class=\"class1 class2\"></p>"
     optional: true
   Ruby-style tag with 'id' as an attribute:
     haml: "%p{:id => '1'}"
-    html: "<p id='1'></p>"
+    html: "<p id=\"1\"></p>"
     optional: true
   Ruby-style tag with a CSS id and 'id' as an attribute:
     haml: "%p#id{:id => '1'}"
-    html: "<p id='id_1'></p>"
+    html: "<p id=\"id_1\"></p>"
     optional: true
   Ruby-style tag with a CSS id and a numeric 'id' as an attribute:
     haml: "%p#id{:id => 1}"
-    html: "<p id='id_1'></p>"
+    html: "<p id=\"id_1\"></p>"
     optional: true
   Ruby-style tag with a variable attribute:
     haml: "%p{:class => var}"
-    html: "<p class='hello'></p>"
+    html: "<p class=\"hello\"></p>"
     optional: true
     locals:
       var: hello
   Ruby-style tag with a CSS class and 'class' as a variable attribute:
     haml: ".hello{:class => var}"
-    html: "<div class='hello world'></div>"
+    html: "<div class=\"hello world\"></div>"
     optional: true
     locals:
       var: world
   Ruby-style tag multiple CSS classes (sorted correctly):
     haml: ".z{:class => var}"
-    html: "<div class='a z'></div>"
+    html: "<div class=\"a z\"></div>"
     optional: true
     locals:
       var: a
@@ -389,7 +389,7 @@ internal filters:
 
       %p
     html: |-
-      <style type='text/css'>
+      <style type=\"text/css\">
         /*<![CDATA[*/
           hello
         /*]]>*/
@@ -403,7 +403,7 @@ internal filters:
         a();
       %p
     html: |-
-      <script type='text/javascript'>
+      <script type=\"text/javascript\">
         //<![CDATA[
           a();
         //]]>
@@ -480,7 +480,7 @@ HTML escaping:
 boolean attributes:
   boolean attribute with XHTML:
     haml: "%input(checked=true)"
-    html: "<input checked='checked' />"
+    html: "<input checked=\"checked\" />"
     config:
       format: xhtml
   boolean attribute with HTML:

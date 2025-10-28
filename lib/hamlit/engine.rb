@@ -14,13 +14,13 @@ module Hamlit
       :buffer_class,
       generator:    Temple::Generators::StringBuffer,
       format:       :html,
-      attr_quote:   "'",
+      attr_quote:   '"',
       escape_html:  true,
       escape_attrs: true,
       autoclose:    %w(area base basefont br col command embed frame
                        hr img input isindex keygen link menuitem meta
                        param source track wbr),
-      filename:     "",
+      filename:     '',
       check_syntax: false,
       disable_capture: false,
     )

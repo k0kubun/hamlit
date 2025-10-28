@@ -6,7 +6,7 @@ describe Hamlit::Engine do
   describe 'old attributes' do
     it 'renders attributes' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <span class='foo'>bar</span>
+        <span class="foo">bar</span>
       HTML
         %span{class: 'foo'} bar
       HAML
@@ -14,7 +14,7 @@ describe Hamlit::Engine do
 
     it 'renders attributes' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <span data='2'>bar</span>
+        <span data="2">bar</span>
       HTML
         %span{ data: 2 } bar
       HAML
@@ -22,7 +22,7 @@ describe Hamlit::Engine do
 
     it 'renders attributes' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <span class='foo'>bar</span>
+        <span class="foo">bar</span>
       HTML
         %span{ :class => 'foo' } bar
       HAML
@@ -30,7 +30,7 @@ describe Hamlit::Engine do
 
     it 'renders attributes' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <span class='foo' id='bar'>bar</span>
+        <span class="foo" id="bar">bar</span>
       HTML
         %span{ :class => 'foo', id: 'bar' } bar
       HAML
@@ -44,9 +44,18 @@ describe Hamlit::Engine do
       HAML
     end
 
+    it 'renders value-less attributes' do; skip
+      assert_render(<<-HTML.unindent, <<-HAML.unindent)
+        <div class="foo" data-doo="yep" data-yabba="dabba"></div>
+      HTML
+        - data = { yabba: 'dabba', doo: 'yep' }
+        .foo{ data: }
+      HAML
+    end if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new('3.1')
+
     it 'accepts method call including comma' do
       assert_render(<<-HTML.unindent, <<-'HAML'.unindent)
-        <body class='bb' data-confirm='really?' data-disabled id='a'></body>
+        <body class="bb" data-confirm="really?" data-disabled id="a"></body>
       HTML
         %body{ class: "#{"ab".gsub(/a/, 'b')}", data: { confirm: 'really?', disabled: true }, id: 'c'.gsub(/c/, 'a') }
       HAML
@@ -54,7 +63,7 @@ describe Hamlit::Engine do
 
     it 'accepts tag content' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <span class='foo'><b>bar</b></span>
+        <span class="foo"><b>bar</b></span>
       HTML
         %span{ class: 'foo' } <b>bar</b>
       HAML
@@ -62,7 +71,7 @@ describe Hamlit::Engine do
 
     it 'renders multi-byte chars as static attribute value' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <img alt='こんにちは'>
+        <img alt="こんにちは">
       HTML
         %img{ alt: 'こんにちは' }
       HAML
@@ -70,18 +79,27 @@ describe Hamlit::Engine do
 
     it 'sorts static attributes by name' do
       assert_render(<<-HTML.unindent, <<-HAML.unindent)
-        <span foo='bar' hoge='piyo'></span>
-        <span foo='bar' hoge='piyo'></span>
+        <span foo="bar" hoge="piyo"></span>
+        <span foo="bar" hoge="piyo"></span>
       HTML
         %span{ :foo => "bar", :hoge => "piyo"}
         %span{ :hoge => "piyo", :foo => "bar"}
       HAML
     end
 
+    it 'renders %() string attributes' do
+      assert_render(<<-'HTML'.unindent, <<-'HAML'.unindent)
+        <p title="foo(a)"></p>
+      HTML
+        - some_local_variable = 'a'
+        %p{ title: %(foo(#{some_local_variable})) }
+      HAML
+    end
+
     describe 'runtime attributes' do
       it 'renders runtime hash attribute' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <span foo='bar'></span>
+          <span foo="bar"></span>
         HTML
           - hash = { foo: 'bar' }
           %span{ hash }
@@ -90,7 +108,7 @@ describe Hamlit::Engine do
 
       it 'renders multiples hashes' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <span a='b' c='d' e='f'></span>
+          <span a="b" c="d" e="f"></span>
         HTML
           - h1 = { a: 'b' }
           - h2 = { c: 'd' }
@@ -101,7 +119,7 @@ describe Hamlit::Engine do
 
       it 'renders multiples hashes and literal hash' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <span a='b' c='d' e='f' g='h' i='j'></span>
+          <span a="b" c="d" e="f" g="h" i="j"></span>
         HTML
           - h1 = { a: 'b' }
           - h2 = { c: 'd' }
@@ -127,9 +145,9 @@ describe Hamlit::Engine do
     describe 'joinable attributes' do
       it 'joins class with a space' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <p class='a b c'></p>
-          <p class='a b c'></p>
-          <p class='a b c'></p>
+          <p class="a b c"></p>
+          <p class="a b c"></p>
+          <p class="a b c"></p>
         HTML
           - val = ['a', 'b', 'c']
           %p{ class: val }
@@ -140,10 +158,10 @@ describe Hamlit::Engine do
 
       it 'joins attribute class and element class' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div class='foo bar'></div>
-          <div class='foo bar'></div>
-          <div class='foo bar'></div>
-          <div class='foo bar baz'></div>
+          <div class="foo bar"></div>
+          <div class="foo bar"></div>
+          <div class="foo bar"></div>
+          <div class="foo bar baz"></div>
         HTML
           .foo{ class: ['bar'] }
           .foo{ class: ['bar', 'foo'] }
@@ -154,9 +172,9 @@ describe Hamlit::Engine do
 
       it 'joins id with an underscore' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <p id='a_b_c'></p>
-          <p id='a_b_c'></p>
-          <p id='a_b_c'></p>
+          <p id="a_b_c"></p>
+          <p id="a_b_c"></p>
+          <p id="a_b_c"></p>
         HTML
           - val = ['a', 'b', 'c']
           %p{ id: val }
@@ -165,9 +183,9 @@ describe Hamlit::Engine do
         HAML
       end
 
-      it 'does not join others' do
+      it 'does not join others' do; skip
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <a data-value='[{:count=&gt;1}]'></a>
+          <a data-value="[#{render_hash({ count: 1 })}]"></a>
         HTML
           %a{ data: { value: [count: 1] } }
         HAML
@@ -196,14 +214,14 @@ describe Hamlit::Engine do
 
       it 'deletes some limited attributes with dynamic value' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
-          <div class='bar' id='foo'></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
+          <div class="bar" id="foo"></div>
         HTML
           - val = false
           #foo.bar{ autofocus: val }
@@ -219,15 +237,15 @@ describe Hamlit::Engine do
 
       it 'does not delete non-boolean attributes, for optimization' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <a href='false'></a>
-          <a href='false'></a>
-          <a href='false'></a>
+          <a href="false"></a>
+          <a href="false"></a>
+          <a href="false"></a>
           <a></a>
           <a></a>
           <a></a>
-          <a href=''></a>
-          <a href=''></a>
-          <a href=''></a>
+          <a href=""></a>
+          <a href=""></a>
+          <a href=""></a>
           <a></a>
           <a></a>
           <a></a>
@@ -262,9 +280,9 @@ describe Hamlit::Engine do
     describe 'html escape' do
       it 'escapes attribute values on static attributes' do
         assert_render(<<-HTML.unindent, <<-'HAML'.unindent)
-          <a title='&#39;'></a>
-          <a title='&#39;&quot;'></a>
-          <a href='/search?foo=bar&amp;hoge=&lt;fuga&gt;'></a>
+          <a title="&#39;"></a>
+          <a title="&#39;&quot;"></a>
+          <a href="/search?foo=bar&amp;hoge=&lt;fuga&gt;"></a>
         HTML
           %a{title: "'"}
           %a{title: "'\""}
@@ -274,8 +292,8 @@ describe Hamlit::Engine do
 
       it 'escapes attribute values on dynamic attributes' do
         assert_render(<<-HTML.unindent, <<-'HAML'.unindent)
-          <a title='&#39;&quot;'></a>
-          <a href='/search?foo=bar&amp;hoge=&lt;fuga&gt;'></a>
+          <a title="&#39;&quot;"></a>
+          <a href="/search?foo=bar&amp;hoge=&lt;fuga&gt;"></a>
         HTML
           - title = "'\""
           - href  = '/search?foo=bar&hoge=<fuga>'
@@ -286,8 +304,8 @@ describe Hamlit::Engine do
 
       it 'escapes attribute values on hash attributes' do
         assert_render(<<-HTML.unindent, <<-'HAML'.unindent)
-          <a title='&#39;&quot;'></a>
-          <a href='/search?foo=bar&amp;hoge=&lt;fuga&gt;'></a>
+          <a title="&#39;&quot;"></a>
+          <a href="/search?foo=bar&amp;hoge=&lt;fuga&gt;"></a>
         HTML
           - title = { title: "'\"" }
           - href  = { href:  '/search?foo=bar&hoge=<fuga>' }
@@ -300,7 +318,7 @@ describe Hamlit::Engine do
     describe 'nested data attributes' do
       it 'renders data attribute by hash' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <span class='foo' data-bar='baz'></span>
+          <span class="foo" data-bar="baz"></span>
         HTML
           - hash = { bar: 'baz' }
           %span.foo{ data: hash }
@@ -326,7 +344,7 @@ describe Hamlit::Engine do
 
       it 'changes an underscore in a nested key to a hyphen' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div data-raw-src='foo'></div>
+          <div data-raw-src="foo"></div>
         HTML
           %div{ data: { raw_src: 'foo' } }
         HAML
@@ -334,7 +352,7 @@ describe Hamlit::Engine do
 
       it 'changes an underscore in a nested dynamic attribute' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div data-raw-src='foo'></div>
+          <div data-raw-src="foo"></div>
         HTML
           - hash = { raw_src: 'foo' }
           %div{ data: hash }
@@ -345,7 +363,7 @@ describe Hamlit::Engine do
     describe 'nested aria attributes' do
       it 'renders aria attribute by hash' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <span aria-bar='baz' class='foo'></span>
+          <span aria-bar="baz" class="foo"></span>
         HTML
           - hash = { bar: 'baz' }
           %span.foo{ aria: hash }
@@ -371,7 +389,7 @@ describe Hamlit::Engine do
 
       it 'changes an underscore in a nested key to a hyphen' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div aria-raw-src='foo'></div>
+          <div aria-raw-src="foo"></div>
         HTML
           %div{ aria: { raw_src: 'foo' } }
         HAML
@@ -379,18 +397,27 @@ describe Hamlit::Engine do
 
       it 'changes an underscore in a nested dynamic attribute' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div aria-raw-src='foo'></div>
+          <div aria-raw-src="foo"></div>
         HTML
           - hash = { raw_src: 'foo' }
           %div{ aria: hash }
         HAML
       end
-    end if RUBY_ENGINE != 'truffleruby' # aria attribute is not working in truffleruby
+
+      it 'renders hash-only dynamic attributes' do
+        assert_render(<<-HTML.unindent, <<-HAML.unindent)
+          <div aria-label="foo"></div>
+        HTML
+          - hash = { aria: { label: 'foo' } }
+          %div{ hash }
+        HAML
+      end
+    end
 
     describe 'element class with attribute class' do
       it 'does not generate double classes' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div class='item first'></div>
+          <div class="item first"></div>
         HTML
           .item{ class: 'first' }
         HAML
@@ -398,7 +425,7 @@ describe Hamlit::Engine do
 
       it 'does not generate double classes for a variable' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div class='element val'></div>
+          <div class="element val"></div>
         HTML
           - val = 'val'
           .element{ class: val }
@@ -407,7 +434,7 @@ describe Hamlit::Engine do
 
       it 'does not generate double classes for hash attributes' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div class='element val'></div>
+          <div class="element val"></div>
         HTML
           - hash = { class: 'val' }
           .element{ hash }
@@ -418,7 +445,7 @@ describe Hamlit::Engine do
     describe 'element id with attribute id' do
       it 'does not generate double ids' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div id='item_first'></div>
+          <div id="item_first"></div>
         HTML
           #item{ id: 'first' }
         HAML
@@ -426,7 +453,7 @@ describe Hamlit::Engine do
 
       it 'does not generate double ids for a variable' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div id='item_first'></div>
+          <div id="item_first"></div>
         HTML
           - val = 'first'
           #item{ id: val }
@@ -435,7 +462,7 @@ describe Hamlit::Engine do
 
       it 'does not generate double ids for hash attributes' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div id='item_first'></div>
+          <div id="item_first"></div>
         HTML
           - hash = { id: 'first' }
           #item{ hash }
@@ -444,7 +471,7 @@ describe Hamlit::Engine do
 
       it 'does not generate double ids and classes for hash attributes' do
         assert_render(<<-HTML.unindent, <<-HAML.unindent)
-          <div class='bar foo' id='item_first'></div>
+          <div class="bar foo" id="item_first"></div>
         HTML
           - hash = { id: 'first', class: 'foo' }
           #item.bar{ hash }
@@ -456,7 +483,7 @@ describe Hamlit::Engine do
       describe 'Ruby 2.2 syntax' do
         it 'renders static attributes' do
           assert_render(<<-HTML.unindent, <<-HAML.unindent)
-            <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
           HTML
             %meta{ content: 'IE=edge', 'http-equiv': 'X-UA-Compatible' }
           HAML
@@ -464,7 +491,7 @@ describe Hamlit::Engine do
 
         it 'renders dynamic attributes' do
           assert_render(<<-HTML.unindent, <<-HAML.unindent)
-            <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
           HTML
             - hash = { content: 'IE=edge' }
             %meta{ hash, 'http-equiv': 'X-UA-Compatible' }

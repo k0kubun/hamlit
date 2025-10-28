@@ -7,7 +7,7 @@ require 'minitest/autorun'
 # This is a spec converted by haml-spec.
 # See: https://github.com/haml/haml-spec
 class UglyTest < Minitest::Test
-  HAML_DEFAULT_OPTIONS = { escape_html: true, escape_attrs: true }.freeze
+  HAML_DEFAULT_OPTIONS = { escape_html: true, escape_attrs: true, attr_quote: '"' }.freeze
   HAMLIT_DEFAULT_OPTIONS = { escape_html: true }.freeze
 
   def self.haml_result(haml, options, locals)
@@ -217,7 +217,7 @@ class UglyTest < Minitest::Test
 
     def test_a_tag_with_a_CSS_class
       haml    = %q{%p.class1}
-      _html   = %q{<p class='class1'></p>}
+      html    = %q{<p class="class1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -227,7 +227,7 @@ class UglyTest < Minitest::Test
 
     def test_a_tag_with_multiple_CSS_classes
       haml    = %q{%p.class1.class2}
-      _html   = %q{<p class='class1 class2'></p>}
+      html    = %q{<p class="class1 class2"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -237,7 +237,7 @@ class UglyTest < Minitest::Test
 
     def test_a_tag_with_a_CSS_id
       haml    = %q{%p#id1}
-      _html   = %q{<p id='id1'></p>}
+      html    = %q{<p id="id1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -247,7 +247,7 @@ class UglyTest < Minitest::Test
 
     def test_a_tag_with_multiple_CSS_id_s
       haml    = %q{%p#id1#id2}
-      _html   = %q{<p id='id2'></p>}
+      html    = %q{<p id="id2"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -257,7 +257,7 @@ class UglyTest < Minitest::Test
 
     def test_a_tag_with_a_class_followed_by_an_id
       haml    = %q{%p.class1#id1}
-      _html   = %q{<p class='class1' id='id1'></p>}
+      html    = %q{<p class="class1" id="id1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -267,7 +267,7 @@ class UglyTest < Minitest::Test
 
     def test_a_tag_with_an_id_followed_by_a_class
       haml    = %q{%p#id1.class1}
-      _html   = %q{<p class='class1' id='id1'></p>}
+      html    = %q{<p class="class1" id="id1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -277,7 +277,7 @@ class UglyTest < Minitest::Test
 
     def test_an_implicit_div_with_a_CSS_id
       haml    = %q{#id1}
-      _html   = %q{<div id='id1'></div>}
+      html    = %q{<div id="id1"></div>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -287,7 +287,7 @@ class UglyTest < Minitest::Test
 
     def test_an_implicit_div_with_a_CSS_class
       haml    = %q{.class1}
-      _html   = %q{<div class='class1'></div>}
+      html    = %q{<div class="class1"></div>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -367,7 +367,7 @@ class UglyTest < Minitest::Test
   class Tagswithunusualcssidentifiers < Minitest::Test
     def test_an_all_numeric_class
       haml    = %q{.123}
-      _html   = %q{<div class='123'></div>}
+      html    = %q{<div class="123"></div>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -377,7 +377,7 @@ class UglyTest < Minitest::Test
 
     def test_a_class_with_underscores
       haml    = %q{.__}
-      _html   = %q{<div class='__'></div>}
+      html    = %q{<div class="__"></div>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -387,7 +387,7 @@ class UglyTest < Minitest::Test
 
     def test_a_class_with_dashes
       haml    = %q{.--}
-      _html   = %q{<div class='--'></div>}
+      html    = %q{<div class="--"></div>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -409,7 +409,7 @@ class UglyTest < Minitest::Test
 
     def test_Inline_content_tag_with_CSS
       haml    = %q{%p.class1 hello}
-      _html   = %q{<p class='class1'>hello</p>}
+      html    = %q{<p class="class1">hello</p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -451,8 +451,8 @@ class UglyTest < Minitest::Test
     def test_Nested_content_tag_with_CSS
       haml    = %q{%p.class1
   hello}
-      _html   = %q{<p class='class1'>
-  hello
+      html    = %q{<p class="class1">
+hello
 </p>}
       locals  = {}
       options = {}
@@ -484,7 +484,7 @@ class UglyTest < Minitest::Test
   class Tagswithhtmlstyleattributes < Minitest::Test
     def test_HTML_style_one_attribute
       haml    = %q{%p(a='b')}
-      _html   = %q{<p a='b'></p>}
+      html    = %q{<p a="b"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -494,7 +494,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_multiple_attributes
       haml    = %q{%p(a='b' c='d')}
-      _html   = %q{<p a='b' c='d'></p>}
+      html    = %q{<p a="b" c="d"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -505,7 +505,7 @@ class UglyTest < Minitest::Test
     def test_HTML_style_attributes_separated_with_newlines
       haml    = %q{%p(a='b'
   c='d')}
-      _html   = %q{<p a='b' c='d'></p>}
+      html    = %q{<p a="b" c="d"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -515,7 +515,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_interpolated_attribute
       haml    = %q{%p(a="#{var}")}
-      _html   = %q{<p a='value'></p>}
+      html    = %q{<p a="value"></p>}
       locals  = {:var=>"value"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -525,7 +525,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_class_as_an_attribute
       haml    = %q{%p(class='class1')}
-      _html   = %q{<p class='class1'></p>}
+      html    = %q{<p class="class1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -535,7 +535,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_tag_with_a_CSS_class_and_class_as_an_attribute
       haml    = %q{%p.class2(class='class1')}
-      _html   = %q{<p class='class2 class1'></p>}
+      html    = %q{<p class="class2 class1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -545,7 +545,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_tag_with_id_as_an_attribute
       haml    = %q{%p(id='1')}
-      _html   = %q{<p id='1'></p>}
+      html    = %q{<p id="1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -555,7 +555,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_tag_with_a_CSS_id_and_id_as_an_attribute
       haml    = %q{%p#id(id='1')}
-      _html   = %q{<p id='id_1'></p>}
+      html    = %q{<p id="id_1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -565,7 +565,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_tag_with_a_variable_attribute
       haml    = %q{%p(class=var)}
-      _html   = %q{<p class='hello'></p>}
+      html    = %q{<p class="hello"></p>}
       locals  = {:var=>"hello"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -575,7 +575,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_tag_with_a_CSS_class_and_class_as_a_variable_attribute
       haml    = %q{.hello(class=var)}
-      _html   = %q{<div class='hello world'></div>}
+      html    = %q{<div class="hello world"></div>}
       locals  = {:var=>"world"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -585,7 +585,7 @@ class UglyTest < Minitest::Test
 
     def test_HTML_style_tag_multiple_CSS_classes_sorted_correctly_
       haml    = %q{.z(class=var)}
-      _html   = %q{<div class='a z'></div>}
+      html    = %q{<div class="a z"></div>}
       locals  = {:var=>"a"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -608,7 +608,7 @@ class UglyTest < Minitest::Test
   class Tagswithrubystyleattributes < Minitest::Test
     def test_Ruby_style_one_attribute
       haml    = %q{%p{:a => 'b'}}
-      _html   = %q{<p a='b'></p>}
+      html    = %q{<p a="b"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -618,7 +618,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_attributes_hash_with_whitespace
       haml    = %q{%p{  :a  =>  'b'  }}
-      _html   = %q{<p a='b'></p>}
+      html    = %q{<p a="b"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -628,7 +628,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_interpolated_attribute
       haml    = %q{%p{:a =>"#{var}"}}
-      _html   = %q{<p a='value'></p>}
+      html    = %q{<p a="value"></p>}
       locals  = {:var=>"value"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -638,7 +638,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_multiple_attributes
       haml    = %q{%p{ :a => 'b', 'c' => 'd' }}
-      _html   = %q{<p a='b' c='d'></p>}
+      html    = %q{<p a="b" c="d"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -649,7 +649,7 @@ class UglyTest < Minitest::Test
     def test_Ruby_style_attributes_separated_with_newlines
       haml    = %q{%p{ :a => 'b',
   'c' => 'd' }}
-      _html   = %q{<p a='b' c='d'></p>}
+      html    = %q{<p a="b" c="d"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -659,7 +659,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_class_as_an_attribute
       haml    = %q{%p{:class => 'class1'}}
-      _html   = %q{<p class='class1'></p>}
+      html    = %q{<p class="class1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -669,7 +669,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_with_a_CSS_class_and_class_as_an_attribute
       haml    = %q{%p.class2{:class => 'class1'}}
-      _html   = %q{<p class='class2 class1'></p>}
+      html    = %q{<p class="class2 class1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -679,7 +679,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_with_id_as_an_attribute
       haml    = %q{%p{:id => '1'}}
-      _html   = %q{<p id='1'></p>}
+      html    = %q{<p id="1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -689,7 +689,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_with_a_CSS_id_and_id_as_an_attribute
       haml    = %q{%p#id{:id => '1'}}
-      _html   = %q{<p id='id_1'></p>}
+      html    = %q{<p id="id_1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -699,7 +699,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_with_a_CSS_id_and_a_numeric_id_as_an_attribute
       haml    = %q{%p#id{:id => 1}}
-      _html   = %q{<p id='id_1'></p>}
+      html    = %q{<p id="id_1"></p>}
       locals  = {}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -709,7 +709,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_with_a_variable_attribute
       haml    = %q{%p{:class => var}}
-      _html   = %q{<p class='hello'></p>}
+      html    = %q{<p class="hello"></p>}
       locals  = {:var=>"hello"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -719,7 +719,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_with_a_CSS_class_and_class_as_a_variable_attribute
       haml    = %q{.hello{:class => var}}
-      _html   = %q{<div class='hello world'></div>}
+      html    = %q{<div class="hello world"></div>}
       locals  = {:var=>"world"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -729,7 +729,7 @@ class UglyTest < Minitest::Test
 
     def test_Ruby_style_tag_multiple_CSS_classes_sorted_correctly_
       haml    = %q{.z{:class => var}}
-      _html   = %q{<div class='a z'></div>}
+      html    = %q{<div class="a z"></div>}
       locals  = {:var=>"a"}
       options = {}
       haml_result = UglyTest.haml_result(haml, options, locals)
@@ -1012,7 +1012,7 @@ class UglyTest < Minitest::Test
   class Booleanattributes < Minitest::Test
     def test_boolean_attribute_with_XHTML
       haml    = %q{%input(checked=true)}
-      _html   = %q{<input checked='checked' />}
+      html    = %q{<input checked="checked" />}
       locals  = {}
       options = {:format=>:xhtml}
       haml_result = UglyTest.haml_result(haml, options, locals)
