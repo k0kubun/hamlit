@@ -1,8 +1,9 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. This
-project adheres to [Semantic Versioning](http://semver.org/). This change log is based upon
-[keep-a-changelog](https://github.com/olivierlacan/keep-a-changelog).
+## 4.0.0
+
+- Change default `attr_quote` from `'` to `"`
+- Bump required Ruby version to 3.2
 
 ## [3.0.3](https://github.com/k0kubun/hamlit/compare/v3.0.2...v3.0.3) - 2022-11-07
 
