@@ -12,6 +12,10 @@ jobs:
   push:
     if: github.repository_owner == 'k0kubun'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: [ruby, jruby]
+      fail-fast: false
 
     environment:
       name: rubygems.org
@@ -33,7 +37,7 @@ jobs:
         uses: ruby/setup-ruby@eaecf785f6a34567a6d97f686bbb7bccc1ac1e5c # v1.237.0
         with:
           bundler-cache: true
-          ruby-version: ruby
+          ruby-version: ${{ matrix.ruby }}
 
       - name: Publish to RubyGems
         uses: rubygems/release-gem@a25424ba2ba8b387abc8ef40807c2c85b96cbe32 # v1.1.1
