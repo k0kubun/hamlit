@@ -22,7 +22,7 @@ class HelperTest < Haml::TestCase
   end
 
   def setup
-    skip if RUBY_ENGINE == 'truffleruby' # fails with Rails 8.1
+    skip
     @base = Class.new(ActionView::Base) do
       def nested_tag
         content_tag(:span) {content_tag(:div) {"something"}}
