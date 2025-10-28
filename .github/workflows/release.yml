@@ -48,3 +48,4 @@ jobs:
           gh release create "${tag_name}" --verify-tag --generate-notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ matrix.ruby == 'ruby' }}
