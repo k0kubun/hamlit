@@ -62,7 +62,7 @@ module Hamlit::AttributeBuilder
           when value.is_a?(String)
             classes += value.split(' ')
           when value.is_a?(Array)
-            classes += value.select { |v| v }
+            classes += value.flatten.select { |v| v }
           when value
             classes << value.to_s
           end
