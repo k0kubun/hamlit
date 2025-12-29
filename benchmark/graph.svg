@@ -6,8 +6,8 @@
       <stop offset="100%" stop-color="#006dd0" />
     </linearGradient>
   </defs>
-  <text y="94" style="color:#000000;font-size:24px;fill:#000000;" text-anchor="middle" x="640">compiled code's rendering times per second (escaping HTML)</text>
   <rect ry="0" rx="0" height="800" width="1280" y="0" x="0" fill="#ffffff" />
+  <text y="94" style="color:#000000;font-size:24px;fill:#000000;" text-anchor="middle" x="640">compiled code's rendering times per second (escaping HTML)</text>
   <g>
     <path d="M 96 695.5 L 1231 695.5" stroke-dasharray="none" stroke-width="1" stroke="#e6e6e6" fill="none" />
     <path d="M 96 559.5 L 1231 559.5" stroke-dasharray="none" stroke-width="1" stroke="#e6e6e6" fill="none" />
