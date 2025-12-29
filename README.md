@@ -20,17 +20,30 @@ given no performance difference between them.
 ### What is Hamlit?
 Hamlit is another implementation of [Haml](https://github.com/haml/haml).
 With some [Hamlit's characteristics](REFERENCE.md#hamlits-characteristics) for performance,
-Hamlit is **1.94x times faster** than the original Haml 5 in [this benchmark](benchmark/run-benchmarks.rb),
+Hamlit was 1.94x times faster than the original Haml 5 in [this benchmark](benchmark/run-benchmarks.rb),
 which is an HTML-escaped version of [slim-template/slim's one](https://github.com/slim-template/slim/blob/4.1.0/benchmarks/run-benchmarks.rb) for fairness.
+Recent benchmarks no longer show this difference in performance.
 
-<img src="https://raw.githubusercontent.com/k0kubun/hamlit/afcc2b36c4861c2f764baa09afd9530ca25eeafa/benchmark/graph/graph.png" width="600x" alt="Hamlit Benchmark" />
+<img src="benchmark/graph.svg" alt="Hamlit Benchmark" />
 
 ```
-      hamlit v2.13.0:   247404.4 i/s
-        erubi v1.9.0:   244356.4 i/s - 1.01x slower
-         slim v4.1.0:   238254.3 i/s - 1.04x slower
-         faml v0.8.1:   197293.2 i/s - 1.25x slower
-         haml v5.2.0:   127834.4 i/s - 1.94x slower
+ruby 4.0.0 (2025-12-25 revision 553f1675f3) +YJIT +PRISM [x86_64-linux]
+Warming up --------------------------------------
+       erubi v1.13.1    68.899k i/100ms
+         slim v5.2.1    61.171k i/100ms
+         haml v7.1.0    71.782k i/100ms
+       hamlit v4.0.0    73.627k i/100ms
+Calculating -------------------------------------
+       erubi v1.13.1    707.031k (± 0.9%) i/s    (1.41 μs/i) -      3.583M in   5.067776s
+         slim v5.2.1    615.437k (± 0.6%) i/s    (1.62 μs/i) -      3.120M in   5.069276s
+         haml v7.1.0    730.772k (± 1.0%) i/s    (1.37 μs/i) -      3.661M in   5.010166s
+       hamlit v4.0.0    741.546k (± 0.6%) i/s    (1.35 μs/i) -      3.755M in   5.063918s
+
+Comparison:
+       hamlit v4.0.0:   741546.2 i/s
+         haml v7.1.0:   730771.6 i/s - same-ish: difference falls within error
+       erubi v1.13.1:   707030.8 i/s - 1.05x  slower
+         slim v5.2.1:   615436.7 i/s - 1.20x  slower
 ```
 
 ### Why is Hamlit fast?
