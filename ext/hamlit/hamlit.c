@@ -30,6 +30,12 @@ str_eq(VALUE str, const char *cstr, long n)
   return RSTRING_LEN(str) == n && memcmp(RSTRING_PTR(str), cstr, n) == 0;
 }
 
+static int
+str_start_with(VALUE str, const char *cstr, long n)
+{
+  return RSTRING_LEN(str) >= n && memcmp(RSTRING_PTR(str), cstr, n) == 0;
+}
+
 static VALUE
 to_s(VALUE value)
 {
@@ -348,8 +354,8 @@ merge_all_attrs(VALUE hashes)
 int
 is_boolean_attribute(VALUE key, VALUE boolean_attributes)
 {
-  if (str_eq(rb_str_substr(key, 0, 5), "data-", 5)) return 1;
-  if (str_eq(rb_str_substr(key, 0, 5), "aria-", 5)) return 1;
+  if (str_start_with(key, "data-", 5)) return 1;
+  if (str_start_with(key, "aria-", 5)) return 1;
   return RTEST(rb_ary_includes(boolean_attributes, key));
 }
 
