@@ -8,7 +8,7 @@ VALUE mAttributeBuilder, mObjectRef;
 static ID id_flatten, id_keys, id_parse, id_prepend, id_tr, id_uniq_bang;
 static ID id_xhtml;
 
-static VALUE str_aria, str_data, str_equal, str_hyphen, str_space, str_underscore;
+static VALUE str_aria, str_data, str_equal, str_space, str_underscore;
 
 static void
 delete_falsey_values(VALUE values)
@@ -39,14 +39,18 @@ to_s(VALUE value)
 static VALUE
 hyphenate(VALUE str)
 {
+  char *ptr;
   long i;
 
-  if (OBJ_FROZEN(str)) str = rb_str_dup(str);
+  if (!memchr(RSTRING_PTR(str), '_', RSTRING_LEN(str))) return str;
 
+  if (OBJ_FROZEN(str)) str = rb_str_dup(str);
+  rb_str_modify(str);
+
+  // Replace bytes in place: rb_str_update() takes a character index, not a byte index.
+  ptr = RSTRING_PTR(str);
   for (i = 0; i < RSTRING_LEN(str); i++) {
-    if (RSTRING_PTR(str)[i] == '_') {
-      rb_str_update(str, i, 1, str_hyphen);
-    }
+    if (ptr[i] == '_') ptr[i] = '-';
   }
   return str;
 }
@@ -530,7 +534,6 @@ Init_hamlit(void)
   rb_gc_register_mark_object(str_aria       = rb_obj_freeze(rb_str_new_cstr("aria")));
   rb_gc_register_mark_object(str_data       = rb_obj_freeze(rb_str_new_cstr("data")));
   rb_gc_register_mark_object(str_equal      = rb_obj_freeze(rb_str_new_cstr("=")));
-  rb_gc_register_mark_object(str_hyphen     = rb_obj_freeze(rb_str_new_cstr("-")));
   rb_gc_register_mark_object(str_space      = rb_obj_freeze(rb_str_new_cstr(" ")));
   rb_gc_register_mark_object(str_underscore = rb_obj_freeze(rb_str_new_cstr("_")));
 }

@@ -358,6 +358,15 @@ describe Hamlit::Engine do
           %div{ data: hash }
         HAML
       end
+
+      it 'changes underscores to hyphens in a multibyte nested dynamic key' do
+        assert_render(<<-HTML.unindent, <<-HAML.unindent)
+          <div data-ñ-a-b="foo"></div>
+        HTML
+          - hash = { 'ñ_a_b' => 'foo' }
+          %div{ data: hash }
+        HAML
+      end
     end
 
     describe 'nested aria attributes' do
