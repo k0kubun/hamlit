@@ -171,6 +171,16 @@ hamlit_build_class(VALUE escape_attrs, VALUE array)
   }
 }
 
+// Returns "#{prefix}-#{key}" as a new string.
+static VALUE
+join_key(VALUE prefix, VALUE key)
+{
+  VALUE joined = rb_str_dup(prefix);
+  rb_str_cat(joined, "-", 1);
+  rb_str_concat(joined, to_s(key));
+  return joined;
+}
+
 struct merge_data_attrs_var {
   VALUE merged;
   VALUE key_str;
@@ -186,8 +196,7 @@ merge_data_attrs_i(VALUE key, VALUE value, VALUE ptr)
   if (NIL_P(key)) {
     rb_hash_aset(merged, key_str, value);
   } else {
-    key = rb_str_concat(rb_str_concat(rb_str_dup(key_str), rb_str_new_cstr("-")), to_s(key));
-    rb_hash_aset(merged, key, value);
+    rb_hash_aset(merged, join_key(key_str, key), value);
   }
   return ST_CONTINUE;
 }
@@ -224,7 +233,6 @@ struct flatten_data_attrs_i2_arg {
 static int
 flatten_data_attrs_i2(VALUE k, VALUE v, VALUE ptr)
 {
-  VALUE key;
   struct flatten_data_attrs_i2_arg *arg = (struct flatten_data_attrs_i2_arg *)ptr;
 
   if (!RTEST(v)) return ST_CONTINUE;
@@ -232,11 +240,7 @@ flatten_data_attrs_i2(VALUE k, VALUE v, VALUE ptr)
   if (k == Qnil) {
     rb_hash_aset(arg->flattened, arg->key, v);
   } else {
-    key = rb_str_dup(arg->key);
-    rb_str_cat(key, "-", 1);
-    rb_str_concat(key, to_s(k));
-
-    rb_hash_aset(arg->flattened, key, v);
+    rb_hash_aset(arg->flattened, join_key(arg->key, k), v);
   }
   return ST_CONTINUE;
 }
