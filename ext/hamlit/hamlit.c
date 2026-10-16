@@ -8,7 +8,7 @@ VALUE mAttributeBuilder, mObjectRef;
 static ID id_flatten, id_keys, id_parse, id_prepend, id_tr, id_uniq_bang;
 static ID id_xhtml;
 
-static VALUE str_aria, str_data, str_equal, str_hyphen, str_space, str_underscore;
+static VALUE str_aria, str_data, str_equal, str_space, str_underscore;
 
 static void
 delete_falsey_values(VALUE values)
@@ -30,6 +30,12 @@ str_eq(VALUE str, const char *cstr, long n)
   return RSTRING_LEN(str) == n && memcmp(RSTRING_PTR(str), cstr, n) == 0;
 }
 
+static int
+str_start_with(VALUE str, const char *cstr, long n)
+{
+  return RSTRING_LEN(str) >= n && memcmp(RSTRING_PTR(str), cstr, n) == 0;
+}
+
 static VALUE
 to_s(VALUE value)
 {
@@ -39,14 +45,18 @@ to_s(VALUE value)
 static VALUE
 hyphenate(VALUE str)
 {
+  char *ptr;
   long i;
 
-  if (OBJ_FROZEN(str)) str = rb_str_dup(str);
+  if (!memchr(RSTRING_PTR(str), '_', RSTRING_LEN(str))) return str;
 
+  if (OBJ_FROZEN(str)) str = rb_str_dup(str);
+  rb_str_modify(str);
+
+  // Replace bytes in place: rb_str_update() takes a character index, not a byte index.
+  ptr = RSTRING_PTR(str);
   for (i = 0; i < RSTRING_LEN(str); i++) {
-    if (RSTRING_PTR(str)[i] == '_') {
-      rb_str_update(str, i, 1, str_hyphen);
-    }
+    if (ptr[i] == '_') ptr[i] = '-';
   }
   return str;
 }
@@ -161,6 +171,16 @@ hamlit_build_class(VALUE escape_attrs, VALUE array)
   }
 }
 
+// Returns "#{prefix}-#{key}" as a new string.
+static VALUE
+join_key(VALUE prefix, VALUE key)
+{
+  VALUE joined = rb_str_dup(prefix);
+  rb_str_cat(joined, "-", 1);
+  rb_str_concat(joined, to_s(key));
+  return joined;
+}
+
 struct merge_data_attrs_var {
   VALUE merged;
   VALUE key_str;
@@ -176,8 +196,7 @@ merge_data_attrs_i(VALUE key, VALUE value, VALUE ptr)
   if (NIL_P(key)) {
     rb_hash_aset(merged, key_str, value);
   } else {
-    key = rb_str_concat(rb_str_concat(rb_str_dup(key_str), rb_str_new_cstr("-")), to_s(key));
-    rb_hash_aset(merged, key, value);
+    rb_hash_aset(merged, join_key(key_str, key), value);
   }
   return ST_CONTINUE;
 }
@@ -214,7 +233,6 @@ struct flatten_data_attrs_i2_arg {
 static int
 flatten_data_attrs_i2(VALUE k, VALUE v, VALUE ptr)
 {
-  VALUE key;
   struct flatten_data_attrs_i2_arg *arg = (struct flatten_data_attrs_i2_arg *)ptr;
 
   if (!RTEST(v)) return ST_CONTINUE;
@@ -222,11 +240,7 @@ flatten_data_attrs_i2(VALUE k, VALUE v, VALUE ptr)
   if (k == Qnil) {
     rb_hash_aset(arg->flattened, arg->key, v);
   } else {
-    key = rb_str_dup(arg->key);
-    rb_str_cat(key, "-", 1);
-    rb_str_concat(key, to_s(k));
-
-    rb_hash_aset(arg->flattened, key, v);
+    rb_hash_aset(arg->flattened, join_key(arg->key, k), v);
   }
   return ST_CONTINUE;
 }
@@ -344,8 +358,8 @@ merge_all_attrs(VALUE hashes)
 int
 is_boolean_attribute(VALUE key, VALUE boolean_attributes)
 {
-  if (str_eq(rb_str_substr(key, 0, 5), "data-", 5)) return 1;
-  if (str_eq(rb_str_substr(key, 0, 5), "aria-", 5)) return 1;
+  if (str_start_with(key, "data-", 5)) return 1;
+  if (str_start_with(key, "aria-", 5)) return 1;
   return RTEST(rb_ary_includes(boolean_attributes, key));
 }
 
@@ -530,7 +544,6 @@ Init_hamlit(void)
   rb_gc_register_mark_object(str_aria       = rb_obj_freeze(rb_str_new_cstr("aria")));
   rb_gc_register_mark_object(str_data       = rb_obj_freeze(rb_str_new_cstr("data")));
   rb_gc_register_mark_object(str_equal      = rb_obj_freeze(rb_str_new_cstr("=")));
-  rb_gc_register_mark_object(str_hyphen     = rb_obj_freeze(rb_str_new_cstr("-")));
   rb_gc_register_mark_object(str_space      = rb_obj_freeze(rb_str_new_cstr(" ")));
   rb_gc_register_mark_object(str_underscore = rb_obj_freeze(rb_str_new_cstr("_")));
 }

@@ -13,9 +13,10 @@ module Hamlit
     end
 
     def self.string_literal?(code)
-      return false if syntax_error?(code)
+      sexp = Ripper.sexp(code)
+      return false unless sexp
 
-      type, instructions = Ripper.sexp(code)
+      type, instructions = sexp
       return false if type != :program
       return false if instructions.size > 1
 
