@@ -9,11 +9,7 @@ Hamlit is a high performance [Haml](https://github.com/haml/haml) implementation
 
 **Hamlit's implementation was copied to Haml 6.**
 From Haml 6, you don't need to switch to Hamlit.
-
-Both Haml 6 and Hamlit are still maintained by [k0kubun](https://github.com/k0kubun).
-While you don't need to immediately deprecate Hamlit, Haml 6 has more maintainers
-and you'd better start a new project with Haml rather than Hamlit,
-given no performance difference between them.
+Please switch your use of Hamlit to Haml 6, and consider upgrading it to its newer version.
 
 ## Introduction
 
